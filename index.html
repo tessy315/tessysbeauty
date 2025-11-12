@@ -1,0 +1,550 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Tessy's Beauty & More</title>
+  <link rel="stylesheet" href="style.css">
+  <script defer src="script.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600&display=swap" rel="stylesheet">
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+/>
+<link rel="stylesheet" href="css/style.css">
+
+ </head>
+<body class="min-h-screen bg-gradient-to-b from-pink-100 to-white text-gray-800">
+
+  <!-- Header -->
+  <header  id="man-header" class="fixed top-0 left-0 w-full bg-white/80 backdrop-blur-md shadow-sm z-50">
+    <div id="header-inner" class="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+       <!-- LOGO -->
+    <a href="#" class="flex items-center space-x-2 transition-all duration-500">
+      <img 
+        id="logo"
+        src="https://i.ibb.co/ynmX90YW/1759790410129-removebg-preview.png" 
+        alt="" 
+        class="h-12 md:h-16 w-auto max-w-[180px] md:max-w-[250px] object-contain transition-all duration-500"
+      />
+        <span class="text-pink-700 font-semibold text-xl md:text-2xl" style="font-family: 'Nunito', sans-serif;">
+  Tessy’s Beauty & More
+</span>
+
+    </a>
+      </div>
+      <nav class="hidden md:flex space-x-6 font-medium flex flex-wrap justify-center md:justify-end"> <ul> <a href="#" id="nav-academy" class="hover:text-pink-500">Academy</a> <a href="#services" class="hover:text-pink-500">Services</a> <a href="#contact" class="hover:text-pink-500">Contact</a>  <a href="#about" class="hover:text-pink-500">À propos</a> </ul> </nav> 
+      <!-- Hamburger mobile -->
+<div class="md:hidden">
+  <button id="hamburger" class="text-pink-600 text-2xl focus:outline-none">
+    &#9776;
+  </button>
+</div>
+</div> 
+    
+    <!-- Mobile menu -->
+<div id="mobile-menu" class="max-h-0 overflow-hidden transition-[max-height] duration-500 ease-in-out md:hidden flex-col mt-2 space-y-2 text-center">
+  <a href="#" id="nav-academy-mobile" class="hover:text-pink-500 block">Academy</a>
+  <a href="#services" class="hover:text-pink-500 block">Services</a>
+  <a href="#contact" class="hover:text-pink-500 block">Contact</a>
+  <a href="#about" class="hover:text-pink-500 block">À propos</a>
+</div>
+
+
+
+  </header>
+
+  <!-- HOME PAGE -->
+  <main id="home" class="page-section">
+    <!-- Hero -->
+   <section 
+  class="relative flex flex-col items-center justify-center text-center px-4 py-24 md:py-32 h-[90vh] md:h-[80vh] overflow-hidden bg-center bg-no-repeat bg-cover animate-zoom"
+  style="background-image: url('https://i.ibb.co/39twHsrf/Tessy-s-Face.png');"
+>
+  <!-- Diagonal Pink Gradient Overlay -->
+  <div class="absolute inset-0 bg-gradient-to-br from-pink-300/70 via-pink-100/50 to-white/30"></div>
+
+  <!-- Content -->
+  <div class="relative z-10 bg-white/40 backdrop-blur-sm p-6 md:p-10 max-w-2xl shadow-lg">
+    <h1 class="text-5xl md:text-6xl text-pink-700 mb-4 drop-shadow-sm" style="font-family: 'Great Vibes', cursive;">
+  Sublimez Votre Beauté
+</h1>
+
+  <p class="text-gray-800 text-lg md:text-xl tracking-normal tracking-tight" style="font-family: 'Nunito', cursive;">
+  Bienvenue chez Tessy's Beauty & More — un univers où la beauté, l'élégance et le savoir-faire se rencontrent.
+</p>
+
+
+
+      <!-- Bouton pour switch -->
+     <button id="to-academy-btn" class="px-6 py-3 sm:px-4 sm:py-2 bg-pink-600 text-white rounded-none shadow hover:bg-pink-700" style="font-family: 'Nunito', sans-serif; font-weight: 600;">
+  Suivez nos Formations
+</button>
+
+</div>
+    </section>
+
+<section id="services" class="relative py-20 px-4 bg-gradient-to-r from-pink-200 via-white to-pink-100 backdrop-blur-lg overflow-hidden">
+  <div class="max-w-3xl mx-auto text-center mb-12">
+    <h3 class="text-3xl text-pink-700 drop-shadow mb-2 font-medium" style="font-family: 'Nunito', cursive;">
+  Services & Produits
+</h3>
+
+    <p class="text-gray-800 text-lg md:text-xl tracking-normal tracking-tight" style="font-family: 'Nunito', cursive;">Découvrez nos formations, services personnalisés et produits professionnels</p>
+  </div>
+
+  <!-- Container slides -->
+  <div class="relative overflow-hidden shadow-2xl">
+    <div id="slides-container" class="flex transition-transform duration-700 ease-in-out">
+      
+      <!-- Slide 1 : Formations -->
+      <div class="slide flex-shrink-0 w-full sm:w-full flex flex-col items-center text-center bg-white/10 backdrop-blur-lg">
+        <div class="w-full h-72 md:h-80 overflow-hidden mb-4">
+          <img src="https://i.ibb.co/23DrtKqs/Formation-TBA.jpg" alt="Formations" class="w-full h-full object-cover">
+        </div>
+        <h4 class="text-xl font-italic mb-2 text-pink-700">Formations Professionnelles</h4>
+        <p class="text-gray-800 mb-6 px-4">Apprenez les techniques professionnelles de maquillage, soins et beauté à travers Tessy’s Beauty Academy (en ligne & présentiel).</p> <a href="https://wa.me/50939310139?text=Salut!%20Je%20souhaite%20réserver%20ma%20place%20pour%20la%20formation%20en%20maquillage." target="_blank" rel="noopener noreferrer" 
+           class="whatsapp-btn inline-flex items-center gap-2 px-6 py-2 border border-pink-600 text-pink-700 rounded-none text-sm hover:bg-pink-600 hover:text-white transition relative">
+          <span class="animate-pulse">📝</span> Réservez maintenant
+        </a> 
+      </div>
+
+      <!-- Slide 2 : Maquillage à la demande -->
+      <div class="slide flex-shrink-0 w-full sm:w-full flex flex-col items-center text-center bg-white/10 backdrop-blur-lg">
+        <div class="w-full h-72 md:h-80 overflow-hidden mb-4">
+          <img src="https://i.ibb.co/0RBcngq9/Makeup-Demand-1.jpg" alt="Maquillage à la demande" class="w-full h-full object-cover">
+        </div>
+        <h4 class="text-xl font-italic mb-2 text-pink-700">Maquillage sur demande</h4>
+        <p class="text-gray-800 text-lg md:text-xl tracking-normal tracking-tight" style="font-family: 'Nunito', cursive;">Mariage, graduation, photoshoot... Bénéficiez de l’expertise d’une maquilleuse professionnelle pour chaque occasion.</p>
+        <a href="https://wa.me/50939310139?text=Salut!%20Je%20souhaite%20réserver%20une%20séance%20de%20maquillage." target="_blank" rel="noopener noreferrer" 
+           class="whatsapp-btn inline-flex items-center gap-2 px-6 py-2 border border-pink-600 text-pink-700 rounded-none text-sm hover:bg-pink-600 hover:text-white transition relative">
+          <span class="animate-pulse">💄</span> Réservez maintenant
+        </a>
+      </div>
+
+      <!-- Slide 3 : Produits de maquillage -->
+      <div class="slide flex-shrink-0 w-full sm:w-full flex flex-col items-center text-center bg-white/10 backdrop-blur-lg">
+        <div class="w-full h-72 md:h-80 overflow-hidden mb-4">
+          <img src="https://i.ibb.co/xqqTNh3q/Prod-Makeup.jpg" alt="Produits de maquillage" class="w-full h-full object-cover">
+        </div>
+        <h4 class="text-xl font-italic mb-2 text-pink-700"> Produits de Maquillage</h4>
+        <p class="text-gray-800 text-lg md:text-xl tracking-normal tracking-tight" style="font-family: 'Nunito', cursive;">Fond de teint, gloss, palettes, pinceaux et bien plus — testés et approuvés par nos professionnels.</p>
+        <a href="https://wa.me/50939310139?text=Salut!%20Je%20souhaite%20acheter%20vos%20produits%20de%20maquillage." target="_blank" rel="noopener noreferrer"
+           class="whatsapp-btn inline-flex items-center gap-2 px-6 py-2 border border-pink-600 text-pink-700 rounded-none text-sm hover:bg-pink-600 hover:text-white transition relative">
+          <span class="animate-pulse">🛍️</span> Acheter maintenant
+        </a>
+      </div>
+
+      <!-- Slide 4 : Produits de soin de peau -->
+      <div class="slide flex-shrink-0 w-full sm:w-full flex flex-col items-center text-center bg-white/10 backdrop-blur-lg">
+        <div class="w-full h-72 md:h-80 overflow-hidden mb-4">
+          <img src="https://i.ibb.co/nMHskjky/soinspeau.jpg" alt="Produits de soin de peau" class="w-full h-full object-cover">
+        </div>
+        <h4 class="text-xl font-italic mb-2 text-pink-700">Soins de Peau</h4>
+        <p class="text-gray-800 text-lg md:text-xl tracking-normal tracking-tight" style="font-family: 'Nunito', cursive;">Nettoyants, sérums, crèmes et masques pour une peau éclatante et bien entretenue.</p>
+        <a href="https://wa.me/50939310139?text=Salut!%20Je%20souhaite%20acheter%20vos%20produits%20de%20soin%20de%20peau." target="_blank" rel="noopener noreferrer"
+           class="whatsapp-btn inline-flex items-center gap-2 px-6 py-2 border border-pink-600 text-pink-700 rounded-none text-sm hover:bg-pink-600 hover:text-white transition relative">
+          <span class="animate-pulse">🌸</span> Acheter maintenant
+        </a>
+      </div>
+
+      <!-- Slide 5 : Nouveautés -->
+      <div class="slide flex-shrink-0 w-full sm:w-full flex flex-col items-center text-center bg-white/10 backdrop-blur-lg">
+        <div class="w-full h-72 md:h-80 overflow-hidden mb-4">
+          <img src="https://i.ibb.co/JjD4CKgx/soinscapillaires.jpg" alt="À venir" class="w-full h-full object-cover">
+        </div>
+        <h4 class="text-xl font-italic mb-2 text-pink-700">Soins Capillaires & Accessoires</h4>
+        <p class="text-gray-800 text-lg md:text-xl tracking-normal tracking-tight" style="font-family: 'Nunito', cursive;">Découvrez nos shampoings, huiles capillaires et accessoires pour sublimer vos cheveux au quotidien.</p> <a href="https://wa.me/50939310139?text=Salut!%20Je%20souhaite%20acheter%20vos%20produits%20de%20soins%20capillaires." target="_blank" rel="noopener noreferrer"
+           class="whatsapp-btn inline-flex items-center gap-2 px-6 py-2 border border-pink-600 text-pink-700 rounded-none text-sm hover:bg-pink-600 hover:text-white transition relative">
+          <span class="animate-pulse">🌸</span> Acheter maintenant
+        </a>
+      </div>
+
+    </div>
+
+    <!-- Navigation -->
+    <div class="flex justify-center items-center gap-4 mt-4">
+      <button id="prev" class="text-pink-700 text-lg opacity-40 hover:opacity-70 transition font-handwriting">&lt;</button>
+      <span id="counter" class="text-pink-700 text-sm opacity-40 font-handwriting">1 / 5</span>
+      <button id="next" class="text-pink-700 text-lg opacity-40 hover:opacity-70 transition font-handwriting">&gt;</button>
+    </div>
+  </div>
+</section>
+
+    
+<section class="relative w-full h-[90vh] overflow-hidden">
+  <!-- Overlay -->
+  <div class="absolute inset-0 bg-black/15 z-10"></div>
+
+  <!-- Videyo natif HTML5 -->
+  <video autoplay muted loop playsinline class="absolute inset-0 w-full h-full object-cover">
+    <source src="https://res.cloudinary.com/dzrvlahyb/video/upload/v1693300000/VID-20250829-WA0003_pipbbr.mp4" type="video/mp4">
+    Votre navigateur ne supporte pas la lecture de vidéo.
+  </video>
+
+  <!-- Teks sou videyo -->
+  <div class="absolute inset-0 flex flex-col justify-center items-center text-center z-20 text-white px-6">
+    <h3 class="text-3xl md:text-4xl font-bold mb-4 drop-shadow-lg">Tessy's Beauty Academy</h3>
+    <p class="text-lg md:text-xl max-w-2xl drop-shadow-md">
+      Découvrez nos nouvelles sessions et promotions pour sublimer votre beauté.
+    </p>
+    <button id="to-academy-btn-2"
+  class="mt-6 px-6 py-2 border border-white/50 text-white text-sm md:text-base transition hover:bg-white/10 hover:border-white/70">
+  Voir les sessions
+</button>
+
+  </div>
+</section>
+     
+<!-- À propos de nous (Slider) -->
+
+     <section id="about" class="relative py-20 px-4 bg-gradient-to-tr from-pink-50 via-white to-pink-100 backdrop-blur-lg overflow-hidden">
+
+  <div class="max-w-3xl mx-auto text-center mb-12">      
+    <h3 class="text-3xl font-italic text-pink-700 drop-shadow mb-2">À propos de nous</h3>      
+    <p class="text-gray-800 text-lg md:text-xl tracking-normal tracking-tight" style="font-family: 'Nunito', cursive;">Découvrez l'histoire et la mission de Tessy's Beauty & More</p>      
+  </div>      
+       
+<!-- Slider Container -->      
+  <div class="relative overflow-hidden shadow-2xl">      
+   <div id="legalite-slides-container" 
+        class="relative min-h-[400px]">
+      
+      <!-- Slide 1 -->    
+      
+      <div class="slide absolute inset-0 opacity-100 transition-opacity duration-1000 ease-in-out flex flex-col items-center text-center bg-white/10 backdrop-blur-lg p-6">
+    <div class="w-full h-72 md:h-80 overflow-hidden mb-4">      
+      <img src="https://i.ibb.co/C3ByZTfZ/1760738442565-1.jpg" alt="Notre Histoire" class="w-full h-full object-cover">      
+    </div>      
+    <h4 class="text-xl font-italic mb-2 text-pink-700">Notre Histoire</h4>      
+    <p class="text-gray-800 text-lg md:text-xl tracking-normal tracking-tight" style="font-family: 'Nunito', cursive;">Depuis notre ouverture, Tessy's Beauty & More a toujours mis la confiance et l'élégance des femmes au cœur de son travail.</p></div>  
+      
+      <!-- Slide 2 -->  
+      <div class="slide absolute inset-0 opacity-0 transition-opacity duration-1000 ease-in-out flex flex-col items-center text-center bg-white/10 backdrop-blur-lg p-6">
+    <div class="w-full h-72 md:h-80 overflow-hidden mb-4">  
+      <img src="https://i.ibb.co/p6h26dD4/about-Us2-1.jpg" alt="Notre Mission" class="w-full h-full object-cover">  
+    </div>  
+    <h4 class="text-xl font-italic mb-2 text-pink-700">Notre Mission</h4>  
+    <p class="text-gray-800 text-lg md:text-xl tracking-normal tracking-tight" style="font-family: 'Nunito', cursive;">Offrir des services professionnels de beauté tout en transmettant l'art du maquillage à travers notre académie.</p>  
+  </div>
+
+
+<!-- Boutons navigation et compteur -->
+<div class="absolute inset-x-0 bottom-4 flex justify-center items-center gap-4 hidden">
+    <button id="legalite-prev" class="text-pink-700 text-lg opacity-40 hover:opacity-70 transition font-handwriting">&lt;</button>
+    <span id="legalite-counter" class="text-gray-700 font-handwriting opacity-40 text-sm bg-white/80 px-3 py-1 rounded">1 / 2</span>
+    <button id="legalite-next" class="text-pink-700 text-lg opacity-40 hover:opacity-70 transition font-handwriting">&gt;</button>
+</div>
+
+    </div>
+  </div> 
+</section>
+
+
+
+
+  </main>
+
+  <!-- ACADEMY -->
+  <section id="academy" class="hidden py-16 px-4 sm:px-6 bg-pink-50" style="margin-top: 100px;">
+  <div class="max-w-4xl mx-auto text-center">
+
+    
+   <!-- Logo -->
+    <img src="https://i.ibb.co/7FBjbz3/1761006379858-1-removebg-preview.png" 
+         alt="Tessy's Academy Logo" 
+         class="mx-auto mb-4 w-24 sm:w-28 md:w-36 transition-transform hover:scale-105">
+<!-- Tit -->
+    <h2 class="text-5xl md:text-6xl text-pink-700 mb-4 drop-shadow-sm" style="font-family: 'Great Vibes', cursive;">
+      Bienvenue!
+    </h2>
+    <!-- Subtitle / phrase introductive -->
+    <p class="text-gray-800 text-lg md:text-xl tracking-normal tracking-tight" style="font-family: 'Nunito', cursive;">
+      Votre parcours d'apprentissage commence ici ! Explorez nos nouvelles sessions pour sublimer votre beauté.
+    </p>
+    <button id="back-home-btn"  class="px-5 py-2 sm:px-6 sm:py-3 bg-pink-600 text-white shadow-md hover:bg-pink-700 transition-all rounded-none text-sm sm:text-base">← Page D'Acceuil</button>
+
+    <div class="w-full bg-gray-200 h-3 mb-8 mt-6"> 
+  <div id="progress-bar" class="bg-pink-600 h-3" style="width:16.66%"></div>
+</div>
+
+
+    <div class="space-y-8 text-left max-w-3xl mx-auto">
+
+      <!-- Step 1 -->
+     
+<div id="step-1" class="step"> 
+  <h3 class="text-xl font-semibold mb-4">1. Formulaire d'inscription</h3>
+  
+  <!-- Bouton ouvri fòm -->
+  <button id="open-form-btn" 
+          class="px-4 py-2 bg-blue-500 text-white rounded-none mt-2 shadow-sm hover:bg-blue-600 transition">
+    Ouvrir le formulaire d’inscription
+  </button>
+  
+  <!-- Bouton konfimasyon -->
+  <button id="confirm-form-btn" 
+          class="ml-2 px-4 py-2 bg-gray-300 text-gray-600 rounded-none mt-2 cursor-not-allowed shadow-sm" 
+          disabled>
+    J’ai terminé le formulaire
+  </button>
+</div>
+
+
+      <!-- Step 2 -->
+      <div id="step-2" class="hidden">
+        <h3 class="text-gray-800 text-lg md:text-xl tracking-normal tracking-tight" style="font-family: 'Nunito', cursive;">2. Information Paiement</h3>
+        <p class="mt-2">Options : MonCash (36 21 73 00, Nom: Tessy Jean) ou Sogebank (HTG: 901227090 · USD: 911092419).</p>
+        <img src="https://i.ibb.co/vxNNvXp3/Tessy-Moncash-Qr-Code1.png" alt="QR Code MonCash" class="mx-auto my-4 max-w-xs md:max-w-sm rounded-md shadow"/>
+        <div class="flex justify-between mt-4">
+          <button id="step2-prev" class="px-4 py-2 bg-gray-300 rounded-none hover:bg-gray-400">Étape précédente</button>
+          <button id="step2-next" class="px-4 py-2 bg-pink-600 text-white rounded-none hover:bg-pink-700">Étape suivante</button>
+        </div>
+      </div>
+
+      <!-- Step 3 -->
+      <div id="step-3" class="hidden">
+        <h3 class="text-2xl font-bold mb-2">3. Soumettre preuve de paiement</h3>
+        <p class="mb-4 text-gray-600">Effectuez votre paiement puis soumettez votre preuve via WhatsApp.</p>
+        <a id="proof-btn" href="javascript:void(0)"
+           class="inline-block px-6 py-3 bg-gray-300 text-gray-600 rounded-none cursor-not-allowed mb-2">
+           Soumettre preuve de paiement (WhatsApp)
+        </a>
+        <p id="proof-helper" class="text-sm italic text-gray-500 mb-2">
+         💡Veuillez remplir le formulaire d'inscription d'abord, puis effectuer votre paiement et revenir à cette étape aussitôt après.
+        </p>
+        <div class="flex justify-between mt-4">
+          <button id="step3-prev" class="px-4 py-2 bg-gray-300 rounded-none hover:bg-gray-400">Étape précédente</button>
+          <button id="proof-next" class="px-4 py-2 bg-gray-300 text-gray-600 rounded-none cursor-not-allowed" disabled>Étape suivante</button>
+        </div>
+      </div>
+
+      <!-- Step 4 -->
+      <div id="step-4" class="hidden">
+        <h3 class="text-2xl font-bold mb-2">4. Accéder au Google Classroom</h3>
+        <p class="mb-4 text-gray-600">Un code PIN vous sera donné sur WhatsApp après validation de votre paiement.</p>
+        <input type="text" id="pin-input" placeholder="Entrez le PIN reçu"
+               class="px-4 py-2 border rounded-none mb-2 w-full"/>
+        <button id="pin-validate" class="px-6 py-3 bg-pink-600 text-white rounded-none shadow hover:bg-pink-700 mb-2">
+          Valider PIN
+        </button>
+        <p id="pin-msg" class="text-sm italic text-gray-500 mb-2"></p>
+        <a id="classroom-link" href="https://classroom.google.com" target="_blank"
+           class="hidden px-6 py-3 bg-pink-600 text-white rounded-none shadow hover:bg-pink-700">
+           Accéder au Google Classroom
+        </a>
+        <div class="flex justify-between mt-4">
+          <button id="step4-prev" class="px-4 py-2 bg-gray-300 rounded-none hover:bg-gray-400">Étape précédente</button>
+        </div>
+      </div>
+
+      <!-- Step 5 fixe -->
+      <div id="step-5" class="mt-16 text-left">
+        <h3 class="text-3xl font-semibold text-pink-600 mb-8 text-center">Ressources & Infos</h3>
+
+       <!-- Vidéo d’Inscription et Paiement -->
+<div class="mb-8 p-6 bg-white rounded-none shadow text-center">
+  <h4 class="text-3xl font-italic text-pink-600 mb-4">Comment s’inscrire et payer</h4>
+  <p class="text-gray-800 text-lg md:text-xl tracking-normal tracking-tight" style="font-family: 'Nunito', cursive;">Suivez cette animation pour apprendre comment vous inscrire, effectuer le paiement et accéder à vos cours.</p>
+
+  <!-- Vidéo responsive Cloudinary -->
+  <div class="relative w-full max-w-3xl mx-auto overflow-hidden shadow-lg" style="padding-top: 56.25%;">
+    <video class="absolute top-0 left-0 w-full h-full object-cover" autoplay muted loop controls>
+      <source src="https://res.cloudinary.com/votre-cloud/video/upload/vXXXXXX/animation.mp4" type="video/mp4">
+      Votre navigateur ne supporte pas la lecture de vidéos.
+    </video>
+  </div>
+</div>
+
+
+       <!-- Formats de Cours (Fade Slider Style) -->
+<section id="formats-section" class="relative py-20 px-4 bg-gradient-to-tr from-pink-50 via-white to-pink-100 backdrop-blur-lg overflow-hidden">
+
+  <div class="max-w-3xl mx-auto text-center mb-12">
+    <h3 class="text-3xl font-italic text-pink-700 drop-shadow mb-2">Formats de Cours</h3>
+    <p class="text-gray-800 text-lg md:text-xl tracking-normal tracking-tight" style="font-family: 'Nunito', cursive;">Choisissez la formule qui s’adapte le mieux à votre emploi du temps et à vos objectifs</p>
+  </div>
+
+  <!-- Slider Container -->
+  <div class="relative overflow-hidden shadow-2xl rounded-none">
+    <div id="formats-slides" class="relative h-[28rem] sm:h-[32rem]">
+
+      <!-- Slide 1 -->
+      <div class="slide format-slide absolute inset-0 opacity-0 transition-opacity duration-700 flex flex-col justify-center items-center text-center p-6 bg-white/10 backdrop-blur-lg">
+        <div class="w-full h-64 sm:h-72 overflow-hidden mb-4 rounded-none">
+          <img src="https://i.ibb.co/fd59MyJw/Class-Online.jpg" alt="Cours en Ligne" class="w-full h-full object-contain bg-white">
+        </div>
+        <h4 class="text-xl font-italic mb-2 text-pink-700">Online Edition</h4>
+        <p class="text-gray-800 text-lg md:text-xl tracking-normal tracking-tight" style="font-family: 'Nunito', cursive;">✔ Formation 100% en ligne — flexible, accessible, idéale pour apprendre à votre rythme.</p>
+        <p class="text-gray-800 text-lg md:text-xl tracking-normal tracking-tight" style="font-family: 'Nunito', cursive;">✘ Moins d’interaction directe.</p>
+      </div>
+
+      <!-- Slide 2 -->
+      <div class="slide format-slide absolute inset-0 opacity-0 transition-opacity duration-700 flex flex-col justify-center items-center text-center p-6 bg-white/10 backdrop-blur-lg">
+        <div class="w-full h-64 sm:h-72 overflow-hidden mb-4 rounded-none">
+          <img src="https://i.ibb.co/TBnZymHK/Class-Presentiel.jpg" alt="Présentiel" class="w-full h-full object-cover">
+        </div>
+        <h4 class="text-xl font-italic mb-2 text-pink-700">Présentiel (Séminaire)</h4>
+        <p class="text-gray-800 text-lg md:text-xl tracking-normal tracking-tight" style="font-family: 'Nunito', cursive;">✔ Formation pratique en atelier — immersion totale, networking et suivi personnalisé.</p>
+        <p class="text-gray-800 text-lg md:text-xl tracking-normal tracking-tight" style="font-family: 'Nunito', cursive;">✘ Déplacements requis.</p>
+      </div>
+
+      <!-- Slide 3 -->
+      <div class="slide format-slide absolute inset-0 opacity-0 transition-opacity duration-700 flex flex-col justify-center items-center text-center p-6 bg-white/10 backdrop-blur-lg">
+        <div class="w-full h-64 sm:h-72 overflow-hidden mb-4 rounded-none">
+          <img src="https://i.ibb.co/Y7xDVFRP/Class-Combo.jpg" alt="Combo" class="w-full h-full object-contain bg-white">
+        </div>
+        <h4 class="text-xl font-italic mb-2 text-pink-700">Combo</h4>
+        <p class="text-gray-800 text-lg md:text-xl tracking-normal tracking-tight" style="font-family: 'Nunito', cursive;">✔ Combinez le meilleur des deux mondes — cours en ligne + ateliers pratiques pour une expérience complète.</p>
+        <p class="text-gray-800 text-lg md:text-xl tracking-normal tracking-tight" style="font-family: 'Nunito', cursive;">✘ Plus long & un peu plus coûteux.</p>
+      </div>
+
+    </div>
+
+    <!-- Navigation -->
+    <div class="flex justify-center items-center gap-4 mt-4">
+      <button id="formats-prev" class="text-pink-700 text-lg opacity-40 hover:opacity-70 transition font-handwriting">&lt;</button>
+      <span id="formats-counter" class="text-pink-700 text-sm opacity-40 font-handwriting">1 / 3</span>
+      <button id="formats-next" class="text-pink-700 text-lg opacity-40 hover:opacity-70 transition font-handwriting">&gt;</button>
+    </div>
+  </div>
+</section>
+
+
+<!-- Mini Banner Documents Fournis -->
+<div class="mb-8 w-full overflow-hidden rounded-none shadow">
+  <img src="https://i.ibb.co/PnRW9v8/minibaner.png" alt="Documents Fournis" class="w-full h-auto object-cover">
+</div>
+
+
+  </div>
+
+<!-- === Avis & Notes Section (Tessy’s Beauty Style) === -->
+<section id="reviews" class="relative py-20 px-4 bg-gradient-to-tr from-pink-50 via-white to-pink-100 backdrop-blur-lg overflow-hidden">
+  <div class="max-w-3xl mx-auto text-center mb-10">
+    <h3 class="text-3xl font-italic text-pink-700 drop-shadow mb-2">Avis & Notes</h3>
+    <p class="text-gray-800 text-lg md:text-xl tracking-normal tracking-tight" style="font-family: 'Nunito', cursive;">Partagez votre expérience ou découvrez ce que les autres disent de Tessy’s Beauty & More</p>
+  </div>
+
+  <!-- Bouton Ajouter un avis -->
+  <div class="text-center mb-8">
+    <button id="open-review-form" class="bg-pink-600 hover:bg-pink-700 text-white px-6 py-2 rounded-none shadow-md transition">
+      + Ajouter un avis
+    </button>
+  </div>
+
+  <!-- Liste des avis -->
+  <div id="reviews-list" class="max-w-4xl mx-auto grid gap-6 sm:grid-cols-2">
+    <!-- Les avis s’affichent ici par JS -->
+  </div>
+
+  <!-- Formulaire popup -->
+  <div id="review-popup" class="fixed inset-0 bg-black/50 hidden justify-center items-center z-50">
+    <div class="bg-white rounded-none shadow-lg p-6 max-w-md w-full mx-2 relative">
+      <button id="close-popup" class="absolute top-3 right-4 text-gray-500 hover:text-pink-600 text-2xl">&times;</button>
+      <h4 class="text-xl font-semibold text-pink-700 mb-4 text-center">Laisser un avis</h4>
+
+      <form id="review-form" class="flex flex-col gap-4">
+        <input type="text" id="review-name" placeholder="Votre nom" required class="border rounded-none p-2 focus:ring-2 focus:ring-pink-400 outline-none">
+        <textarea id="review-message" placeholder="Votre avis..." required class="border rounded-none p-2 focus:ring-2 focus:ring-pink-400 outline-none"></textarea>
+
+        <!-- Stars -->
+        <div class="flex justify-center gap-2 text-2xl text-gray-400" id="rating-stars">
+          <span data-value="1" class="cursor-pointer">★</span>
+          <span data-value="2" class="cursor-pointer">★</span>
+          <span data-value="3" class="cursor-pointer">★</span>
+          <span data-value="4" class="cursor-pointer">★</span>
+          <span data-value="5" class="cursor-pointer">★</span>
+        </div>
+
+        <!-- Upload image -->
+        <input type="file" id="review-image" accept="image/*" class="border p-2 rounded-none">
+
+        <button type="submit" class="bg-pink-600 hover:bg-pink-700 text-white font-semibold py-2 rounded-none transition">
+          Publier mon avis
+        </button>
+      </form>
+    </div>
+  </div>
+</section>
+
+   
+     </div>
+            </div>
+       
+</section>
+
+<!-- Contact -->
+<section id="contact" class="relative py-20 px-6 bg-gradient-to-br from-pink-100 via-white to-pink-200 backdrop-blur-lg">
+  <div class="max-w-3xl mx-auto text-center bg-white/30 backdrop-blur-lg p-10 shadow-xl border border-white/40 glow-border">
+    <h3 class="text-3xl font-italic mb-6 text-pink-700">Contactez-nous</h3>
+    <p class="text-gray-800 text-lg md:text-xl tracking-normal tracking-tight" style="font-family: 'Nunito', cursive;">
+      Pour plus d'informations ou pour une réservation, contactez-nous via WhatsApp ou email.
+    </p>
+
+    <div class="flex flex-col items-center gap-4">
+      <!-- WhatsApp -->
+      <a href="https://wa.me/50939310139" target="_blank" rel="noopener noreferrer"
+         class="group relative overflow-hidden inline-block bg-green-500 text-white font-italic px-6 py-3 rounded-none shadow-lg transition-transform duration-300 hover:scale-105">
+        <span class="relative z-10">Écrivez-nous sur WhatsApp</span>
+        <span class="absolute inset-0 bg-gradient-to-r from-green-400 via-white to-green-500 opacity-0 group-hover:opacity-30 transition duration-700"></span>
+      </a>
+
+      <!-- Email -->
+      <a href="mailto:tessysbeautyy@gmail.com"
+         class="group relative overflow-hidden inline-block bg-pink-500 text-white font-italic px-6 py-3 rounded-none shadow-lg transition-transform duration-300 hover:scale-105">
+        <span class="relative z-10"> Envoyez-nous un email</span>
+        <span class="absolute inset-0 bg-gradient-to-r from-pink-400 via-white to-pink-500 opacity-0 group-hover:opacity-30 transition duration-700"></span>
+      </a>
+    </div>
+  </div>
+</section>
+
+ <!-- Footer -->
+<footer class="bg-pink-600 text-white text-center py-6 px-4 relative">
+
+  <!-- Disclaimer miniature avec icon info -->
+  <p class="text-xs italic text-white/80 mb-2 flex justify-center items-center gap-1">
+    ℹ️Certaines images sur ce site sont des illustrations générées.
+  </p>
+
+  <!-- Termes & Conditions avec hover doux -->
+  <p class="mb-3">
+    <a href="https://docs.google.com/document/d/18MLlfHRXgH2eMLH0FdQL-bQ__Xi5FQ9ZkJpWQGpyM4I/edit?usp=drivesdk"
+       target="_blank"
+       class="text-white italic hover:text-pink-300 hover:underline transition-colors duration-300">
+       Termes & Conditions
+    </a>
+  </p>
+
+  <!-- Réseaux sociaux -->
+  <div class="flex justify-center gap-6 mb-3">
+    <a href="https://facebook.com/" target="_blank" aria-label="Facebook"
+       class="text-white/90 hover:text-white transition-transform duration-300 hover:scale-110">
+      <i class="fab fa-facebook-f text-xl"></i>
+    </a>
+    <a href="https://instagram.com/" target="_blank" aria-label="Instagram"
+       class="text-white/90 hover:text-white transition-transform duration-300 hover:scale-110">
+      <i class="fab fa-instagram text-xl"></i>
+    </a>
+    <a href="https://tiktok.com/" target="_blank" aria-label="TikTok"
+       class="text-white/90 hover:text-white transition-transform duration-300 hover:scale-110">
+      <i class="fab fa-tiktok text-xl"></i>
+    </a>
+  </div>
+
+  <!-- CopyRight -->
+  <p class="text-sm text-white/90">
+    © 2025 Tessy’s Beauty & More | Tous droits réservés.
+  </p>
+
+</footer>
+
+<script src="js/script.js"></script>
+</body>
+</html>
