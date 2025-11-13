@@ -333,28 +333,33 @@ showFormatSlide(formatIndex);
 const LS_STEP = "academyCurrentStep";
 const LS_FORM_FILLED_AT = "academyFormFilledAt";
 const LS_FORM_OPENED = "academyFormOpened"; // Flag si moun nan ouvri form nan
-const PROOF_DELAY_MS = 120 * 1000; // 120 secondes
-// === Admin PIN Fetch from Netlify ===
+const PROOF_DELAY_MS = 60 * 1000; // 120 secondes
+
+// === ADMIN : GET MASTER PIN FROM NETLIFY ===
 async function getMasterPin() {
-  const API_URL =
-    "https://votresite.netlify.app/.netlify/functions/pin?key=admin2025";
-  // 🟢 Remplace "votresite.netlify.app" par ton vrai domaine Netlify
+  const API_URL = "https://tessysbeauty.netlify.app/.netlify/functions/pin";
 
   try {
-    const response = await fetch(API_URL);
-    if (!response.ok) throw new Error("Erreur de requête PIN");
-    const data = await response.json();
+    const response = await fetch(API_URL, {
+      method: "GET",
+      headers: {
+        "x-api-key": "admin2025",
+        "Content-Type": "application/json"
+      }
+    });
 
-    console.log("🔐 PIN actuel (admin):", data.pin);
+    if (!response.ok) throw new Error("Erreur lors de la récupération du PIN");
+
+    const data = await response.json();
+    console.log("🔐 PIN admin resevwa:", data.pin);
     return data.pin;
+
   } catch (error) {
-    console.error("❌ Impossible d’obtenir le PIN:", error);
+    console.error("❌ PIN pa ka telechaje:", error);
     return null;
   }
 }
 
-// Exemple d'utilisation
-getMasterPin();
 
 function showStep(step) {
   const steps = [1, 2, 3, 4];
