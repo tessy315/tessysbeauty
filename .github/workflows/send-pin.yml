@@ -1,0 +1,19 @@
+name: Send PIN every 30 minutes
+
+on:
+  schedule:
+    - cron: "*/30 * * * *"
+  workflow_dispatch: {}
+
+jobs:
+  send_pin:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger Netlify send-pin function
+        env:
+          NETLIFY_SEND_PIN_URL: https://tessysbeauty.netlify.app/.netlify/functions/send-pin
+          ADMIN_API_KEY: ${{ secrets.ADMIN_API_KEY }}
+        run: |
+          curl -X POST "$NETLIFY_SEND_PIN_URL" \
+               -H "Authorization: Bearer $ADMIN_API_KEY" \
+               -s -o /dev/null -w "Status: %{http_code}\n"
