@@ -362,7 +362,7 @@ const PROOF_DELAY_MS = 60 * 1000; // 120 secondes
       const res = await fetch(PIN_API_URL, {
         method: "GET",
         cache: "no-cache",
-        headers: { "x-api-key": "admin2025_secret_key" }
+        headers: { Authorization: "Bearer admin2025_secret_key"}
       });
 
       if (!res.ok) {
