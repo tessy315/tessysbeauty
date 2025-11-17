@@ -336,29 +336,104 @@ const LS_FORM_OPENED = "academyFormOpened"; // Flag si moun nan ouvri form nan
 const PROOF_DELAY_MS = 60 * 1000; // 120 secondes
 
 // === ADMIN : GET MASTER PIN FROM NETLIFY ===
-async function getMasterPin() {
-  const API_URL = "https://tessysbeauty.netlify.app/.netlify/functions/pin";
 
-  try {
-    const response = await fetch(API_URL, {
-      method: "GET",
-      headers: {
-        "x-api-key": "admin2025",
-        "Content-Type": "application/json"
-      }
-    });
+(() => {
+  const PIN_API_URL = "https://tessysbeauty.netlify.app/.netlify/functions/pin";
+  const btnValidate = document.getElementById("pin-validate");
+  const inputEl = document.getElementById("pin-input");
+  const msgEl = document.getElementById("pin-msg");
+  const classroomLink = document.getElementById("classroom-link");
 
-    if (!response.ok) throw new Error("Erreur lors de la récupération du PIN");
-
-    const data = await response.json();
-    console.log("🔐 PIN admin resevwa:", data.pin);
-    return data.pin;
-
-  } catch (error) {
-    console.error("❌ PIN pa ka telechaje:", error);
-    return null;
+  // Helper: show message (text) and optional color classes
+  function showMessage(text, type = "info") {
+    if (!msgEl) return;
+    msgEl.textContent = text;
+    // minimal styling behavior (don't depend on Tailwind specifics)
+    msgEl.classList.remove("text-red-500", "text-green-500", "text-gray-600");
+    if (type === "error") msgEl.classList.add("text-red-500");
+    else if (type === "success") msgEl.classList.add("text-green-500");
+    else msgEl.classList.add("text-gray-600");
   }
-}
+
+  // Validate local input against a fetched PIN (if available)
+  async function checkPinWhenClicked() {
+    if (!inputEl) return;
+    const userPin = inputEl.value.trim();
+    if (!userPin) return showMessage("Veuillez entrer le PIN, s'il vous plaît.", "error");
+
+    // disable UI while checking
+    btnValidate.disabled = true;
+    btnValidate.classList?.add("opacity-60", "cursor-not-allowed");
+    showMessage("Verification en cours...");
+
+    try {
+      // 1) Try to fetch master PIN from Netlify function WITHOUT sending any secret
+      //    (production-safe: no token in frontend).
+      const res = await fetch(PIN_API_URL, { method: "GET", cache: "no-cache" });
+
+      // If the function is protected, it will respond 401/403.
+      if (res.status === 401 || res.status === 403) {
+        // Protected endpoint: do NOT expose keys. Ask admin to use email PIN.
+        showMessage(
+          "PIN non disponible. Vérifiez votre e-mail/WhatsApp et saisissez-le ci-dessous. Si vous ne le recevez pas, contactez l'administrateur.",
+          "error"
+        );
+        return;
+      }
+
+      // Other non-ok codes: network / server issues.
+      if (!res.ok) {
+        showMessage("Le service PIN n'est pas disponible pour le moment. Veuillez réessayer plus tard.", "error");
+        console.warn("PIN fetch failed:", res.status, await res.text().catch(()=>"<no body>"));
+        return;
+      }
+
+      // Parse response and validate
+      const data = await res.json().catch(() => null);
+      const masterPin = data?.pin ?? null;
+      if (!masterPin) {
+        showMessage("PIN introuvable sur le serveur. Veuillez utiliser le PIN reçu par e-mail/WhatsApp.", "error");
+        return;
+      }
+
+      // Compare
+      if (userPin === String(masterPin)) {
+        // success actions
+        showMessage("Code PIN valide ✅", "success");
+        if (classroomLink) classroomLink.classList.remove("hidden");
+        localStorage.setItem("academyAccessGranted", "1");
+      } else {
+        showMessage("Code PIN invalide ❌", "error");
+      }
+    } catch (err) {
+      console.error("Error checking PIN:", err);
+      showMessage("Erreur réseau lors de la vérification. Veuillez réessayer.", "error");
+    } finally {
+      // re-enable UI
+      btnValidate.disabled = false;
+      btnValidate.classList?.remove("opacity-60", "cursor-not-allowed");
+    }
+  }
+
+  // Attach listener (production-ready: will not auto-call any secret)
+  if (btnValidate) {
+    // remove existing listeners to avoid duplicates (defensive)
+    btnValidate.replaceWith(btnValidate.cloneNode(true));
+    const newBtn = document.getElementById("pin-validate");
+    if (newBtn) newBtn.addEventListener("click", checkPinWhenClicked);
+  }
+
+  // Small helper: if access already granted (localStorage), show link
+  try {
+    if (localStorage.getItem("academyAccessGranted") === "1" && classroomLink) {
+      classroomLink.classList.remove("hidden");
+      showMessage("Accès déjà autorisé.", "success");
+    }
+  } catch (e) {
+    // ignore storage errors in strict browsers
+  }
+})();
+
 
 
 function showStep(step) {
