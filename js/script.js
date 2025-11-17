@@ -172,10 +172,10 @@ initFadeSlider(
 );
 
 const API_URL =
-  "https://script.google.com/macros/s/AKfycbw4tGbKDisAPU3k65cPi7VLmdkeNIN4ZwasxCLaFepE0pnONkXsz9fEDn9FK2R5IDGw/exec"; // ⬅️ Ranplase pa URL API ou
-let selectedRating = 0;
+  "https://script.google.com/macros/s/AKfycbxhPd5hfU-lmxTKxk5lPCev4ZYXfS7AkyCO5GsbMHPb9ETMhPmZfgj8-dct28xoPtbH/exec";
 
 // --- DOM Elements
+let selectedRating = 0;
 const openBtn = document.getElementById("open-review-form");
 const closeBtn = document.getElementById("close-popup");
 const popup = document.getElementById("review-popup");
@@ -205,6 +205,7 @@ async function loadReviews() {
   reviewsList.innerHTML =
     "<p class='text-center col-span-2 text-gray-500'>Chargement...</p>";
   try {
+    // Fetch reviews
     const res = await fetch(API_URL);
     const data = await res.json();
 
@@ -259,29 +260,28 @@ form.addEventListener("submit", async (e) => {
     );
   }
 
-  const reviewData = {
-    name,
-    message,
-    rating: selectedRating,
-    image: imageBase64
-  };
+  const reviewData = { name, message, rating: selectedRating, image: imageBase64 };
+
   try {
     await fetch(API_URL, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(reviewData)
+      body: JSON.stringify(reviewData),
     });
+
+    // Reset form + UI
     form.reset();
     popup.classList.add("hidden");
     selectedRating = 0;
     stars.forEach((s) => s.classList.remove("text-yellow-400"));
-    loadReviews();
+
+    loadReviews(); // reload reviews
   } catch (e) {
     alert("Erreur d’envoi. Réessayez plus tard.");
   }
 });
 
-// --- Convertir image → base64
+// --- Convert image → base64
 function toBase64(file) {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
@@ -293,6 +293,7 @@ function toBase64(file) {
 
 // --- Initial Load
 loadReviews();
+
 
 // === Formats de Cours Fade Slider ===
 
@@ -344,36 +345,49 @@ const PROOF_DELAY_MS = 60 * 1000; // 120 secondes
   const msgEl = document.getElementById("pin-msg");
   const classroomLink = document.getElementById("classroom-link");
 
-  // Helper: show message (text) and optional color classes
+  let MASTER_PIN = null; // ✅ cache PIN lokalman
+
   function showMessage(text, type = "info") {
     if (!msgEl) return;
     msgEl.textContent = text;
-    // minimal styling behavior (don't depend on Tailwind specifics)
     msgEl.classList.remove("text-red-500", "text-green-500", "text-gray-600");
     if (type === "error") msgEl.classList.add("text-red-500");
     else if (type === "success") msgEl.classList.add("text-green-500");
     else msgEl.classList.add("text-gray-600");
   }
 
-  // Validate local input against a fetched PIN (if available)
+  // Fetch PIN yon sèl fwa lè paj chaje
+  async function fetchMasterPin() {
+    try {
+      const res = await fetch(PIN_API_URL, {
+        method: "GET",
+        cache: "no-cache",
+        headers: { "x-api-key": "admin2025_secret_key" }
+      });
+
+      if (!res.ok) {
+        console.warn("PIN fetch failed:", res.status);
+        return;
+      }
+
+      const data = await res.json().catch(() => null);
+      MASTER_PIN = data?.pin ?? null;
+    } catch (err) {
+      console.error("Erreur lors du fetch PIN:", err);
+    }
+  }
+
   async function checkPinWhenClicked() {
     if (!inputEl) return;
     const userPin = inputEl.value.trim();
     if (!userPin) return showMessage("Veuillez entrer le PIN, s'il vous plaît.", "error");
 
-    // disable UI while checking
     btnValidate.disabled = true;
     btnValidate.classList?.add("opacity-60", "cursor-not-allowed");
-    showMessage("Verification en cours...");
+    showMessage("Vérification en cours...");
 
     try {
-      // 1) Try to fetch master PIN from Netlify function WITHOUT sending any secret
-      //    (production-safe: no token in frontend).
-      const res = await fetch(PIN_API_URL, { method: "GET", cache: "no-cache" });
-
-      // If the function is protected, it will respond 401/403.
-      if (res.status === 401 || res.status === 403) {
-        // Protected endpoint: do NOT expose keys. Ask admin to use email PIN.
+      if (!MASTER_PIN) {
         showMessage(
           "PIN non disponible. Vérifiez votre e-mail/WhatsApp et saisissez-le ci-dessous. Si vous ne le recevez pas, contactez l'administrateur.",
           "error"
@@ -381,24 +395,7 @@ const PROOF_DELAY_MS = 60 * 1000; // 120 secondes
         return;
       }
 
-      // Other non-ok codes: network / server issues.
-      if (!res.ok) {
-        showMessage("Le service PIN n'est pas disponible pour le moment. Veuillez réessayer plus tard.", "error");
-        console.warn("PIN fetch failed:", res.status, await res.text().catch(()=>"<no body>"));
-        return;
-      }
-
-      // Parse response and validate
-      const data = await res.json().catch(() => null);
-      const masterPin = data?.pin ?? null;
-      if (!masterPin) {
-        showMessage("PIN introuvable sur le serveur. Veuillez utiliser le PIN reçu par e-mail/WhatsApp.", "error");
-        return;
-      }
-
-      // Compare
-      if (userPin === String(masterPin)) {
-        // success actions
+      if (userPin === String(MASTER_PIN)) {
         showMessage("Code PIN valide ✅", "success");
         if (classroomLink) classroomLink.classList.remove("hidden");
         localStorage.setItem("academyAccessGranted", "1");
@@ -406,32 +403,33 @@ const PROOF_DELAY_MS = 60 * 1000; // 120 secondes
         showMessage("Code PIN invalide ❌", "error");
       }
     } catch (err) {
-      console.error("Error checking PIN:", err);
+      console.error("Erreur vérification PIN:", err);
       showMessage("Erreur réseau lors de la vérification. Veuillez réessayer.", "error");
     } finally {
-      // re-enable UI
       btnValidate.disabled = false;
       btnValidate.classList?.remove("opacity-60", "cursor-not-allowed");
     }
   }
 
-  // Attach listener (production-ready: will not auto-call any secret)
-  if (btnValidate) {
-    // remove existing listeners to avoid duplicates (defensive)
-    btnValidate.replaceWith(btnValidate.cloneNode(true));
-    const newBtn = document.getElementById("pin-validate");
-    if (newBtn) newBtn.addEventListener("click", checkPinWhenClicked);
-  }
+  document.addEventListener("DOMContentLoaded", async () => {
+    // 1️⃣ Fetch PIN yon sèl fwa lè paj la chaje
+    await fetchMasterPin();
 
-  // Small helper: if access already granted (localStorage), show link
-  try {
-    if (localStorage.getItem("academyAccessGranted") === "1" && classroomLink) {
-      classroomLink.classList.remove("hidden");
-      showMessage("Accès déjà autorisé.", "success");
+    // 2️⃣ Listener pou bouton
+    if (btnValidate) {
+      btnValidate.replaceWith(btnValidate.cloneNode(true));
+      const newBtn = document.getElementById("pin-validate");
+      if (newBtn) newBtn.addEventListener("click", checkPinWhenClicked);
     }
-  } catch (e) {
-    // ignore storage errors in strict browsers
-  }
+
+    // 3️⃣ Si aksè deja granté nan localStorage, montre classroom link
+    try {
+      if (localStorage.getItem("academyAccessGranted") === "1" && classroomLink) {
+        classroomLink.classList.remove("hidden");
+        showMessage("Accès déjà autorisé.", "success");
+      }
+    } catch (e) {}
+  });
 })();
 
 
