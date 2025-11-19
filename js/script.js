@@ -337,108 +337,52 @@ const LS_FORM_OPENED = "academyFormOpened"; // Flag si moun nan ouvri form nan
 const PROOF_DELAY_MS = 60 * 1000; // 120 secondes
 
 // === ADMIN : GET MASTER PIN FROM CLOUDFLARE ===
-(() => {
-  const PIN_API_URL = "https://tess.tessysbeautyy.workers.dev/pin";
+const PIN_API_URL = "https://tess.tessysbeautyy.workers.dev/pin";
+let MASTER_PIN = null;
+
+async function fetchMasterPin() {
+  try {
+    const res = await fetch(PIN_API_URL, { method: "GET", headers: { "x-api-key": "admin2025_secret_key" }, cache: "no-cache" });
+    if (!res.ok) { console.error(await res.text()); return; }
+    const data = await res.json();
+    MASTER_PIN = data?.pin ?? null;
+    window.MASTER_PIN = MASTER_PIN;
+  } catch(err) { console.error("Erreur fetch PIN:", err); }
+}
+
+document.addEventListener("DOMContentLoaded", async () => {
+  await fetchMasterPin();
+
   const btnValidate = document.getElementById("pin-validate");
   const inputEl = document.getElementById("pin-input");
-  const msgEl = document.getElementById("pin-msg");
   const classroomLink = document.getElementById("classroom-link");
+  const msgEl = document.getElementById("pin-msg");
 
-  let MASTER_PIN = null; // cache PIN lokalman
-
-  function showMessage(text, type = "info") {
+  function showMessage(msg, type="info") {
     if (!msgEl) return;
-    msgEl.textContent = text;
-    msgEl.classList.remove("text-red-500", "text-green-500", "text-gray-600");
-    if (type === "error") msgEl.classList.add("text-red-500");
-    else if (type === "success") msgEl.classList.add("text-green-500");
-    else msgEl.classList.add("text-gray-600");
+    msgEl.textContent = msg;
+    msgEl.className = "";
+    msgEl.classList.add(type === "error" ? "text-red-500" : type === "success" ? "text-green-500" : "text-gray-600");
   }
 
-  async function fetchMasterPin() {
-  try {
-    const res = await fetch(PIN_API_URL, {
-      method: "GET",
-      cache: "no-cache",
-      headers: { "x-api-key": "admin2025_secret_key" }
-    });
-
-    if (!res.ok) {
-      console.warn("PIN fetch failed:", res.status);
-      return;
-    }
-
-    const data = await res.json().catch(() => null);
-    console.log("PIN API data:", data); // 🔍 Gade sa API a retounen
-
-    // Eseye jwenn PIN a swa nan 'pin' oswa 'masterPin'
-    MASTER_PIN = data?.pin ?? null;
-window.MASTER_PIN = MASTER_PIN; // ← ajoute sa
-
-
-    if (MASTER_PIN) {
-      console.log("MASTER_PIN set to:", MASTER_PIN);
-    } else {
-      console.warn("PIN non disponib nan repons API a.");
-    }
-
-  } catch (err) {
-    console.error("Erreur lors du fetch PIN:", err);
-    }
-  }
-
-  async function checkPinWhenClicked() {
-    if (!inputEl) return;
+  btnValidate?.addEventListener("click", () => {
     const userPin = inputEl.value.trim();
-    if (!userPin) return showMessage("Veuillez entrer le PIN, s'il vous plaît.", "error");
+    if (!userPin) return showMessage("Veuillez entrer le PIN", "error");
 
-    btnValidate.disabled = true;
-    btnValidate.classList?.add("opacity-60", "cursor-not-allowed");
-    showMessage("Vérification en cours...");
-
-    try {
-      if (!MASTER_PIN) {
-        showMessage(
-          "PIN non disponible. Vérifiez votre e-mail/WhatsApp et saisissez-le ci-dessous. Si vous ne le recevez pas, contactez l'administrateur.",
-          "error"
-        );
-        return;
-      }
-
-      if (userPin === String(MASTER_PIN)) {
-        showMessage("Code PIN valide ✅", "success");
-        if (classroomLink) classroomLink.classList.remove("hidden");
-        localStorage.setItem("academyAccessGranted", "1");
-      } else {
-        showMessage("Code PIN invalide ❌", "error");
-      }
-    } catch (err) {
-      console.error("Erreur vérification PIN:", err);
-      showMessage("Erreur réseau lors de la vérification. Veuillez réessayer.", "error");
-    } finally {
-      btnValidate.disabled = false;
-      btnValidate.classList?.remove("opacity-60", "cursor-not-allowed");
+    if (MASTER_PIN && userPin === String(MASTER_PIN)) {
+      showMessage("Code PIN valide ✅", "success");
+      classroomLink?.classList.remove("hidden");
+      localStorage.setItem("academyAccessGranted", "1");
+    } else {
+      showMessage("Code PIN invalide ❌", "error");
     }
-  }
-
-  document.addEventListener("DOMContentLoaded", async () => {
-    await fetchMasterPin();
-
-    if (btnValidate) {
-      btnValidate.replaceWith(btnValidate.cloneNode(true));
-      const newBtn = document.getElementById("pin-validate");
-      if (newBtn) newBtn.addEventListener("click", checkPinWhenClicked);
-    }
-
-    try {
-      if (localStorage.getItem("academyAccessGranted") === "1" && classroomLink) {
-        classroomLink.classList.remove("hidden");
-        showMessage("Accès déjà autorisé.", "success");
-      }
-    } catch (e) {}
   });
-})();
 
+  if (localStorage.getItem("academyAccessGranted") === "1") {
+    classroomLink?.classList.remove("hidden");
+    showMessage("Accès déjà autorisé.", "success");
+  }
+});
 
 
 function showStep(step) {
