@@ -344,7 +344,7 @@ const PROOF_DELAY_MS = 60 * 1000; // 120 secondes
   const msgEl = document.getElementById("pin-msg");
   const classroomLink = document.getElementById("classroom-link");
 
-  let MASTER_PIN = null;
+  let MASTER_PIN = null; // cache PIN lokalman
 
   function showMessage(text, type = "info") {
     if (!msgEl) return;
@@ -357,8 +357,17 @@ const PROOF_DELAY_MS = 60 * 1000; // 120 secondes
 
   async function fetchMasterPin() {
     try {
-      const res = await fetch(PIN_API_URL, { method: "GET", cache: "no-cache" });
-      if (!res.ok) return console.warn("PIN fetch failed:", res.status);
+      const res = await fetch(PIN_API_URL, {
+        method: "GET",
+        cache: "no-cache",
+        headers: { "x-api-key": "admin2025_secret_key" }
+      });
+
+      if (!res.ok) {
+        console.warn("PIN fetch failed:", res.status);
+        return;
+      }
+
       const data = await res.json().catch(() => null);
       MASTER_PIN = data?.pin ?? null;
     } catch (err) {
@@ -375,26 +384,29 @@ const PROOF_DELAY_MS = 60 * 1000; // 120 secondes
     btnValidate.classList?.add("opacity-60", "cursor-not-allowed");
     showMessage("Vérification en cours...");
 
-    if (!MASTER_PIN) {
-      showMessage(
-        "PIN non disponible. Vérifiez votre e-mail/WhatsApp et saisissez-le ci-dessous. Si vous ne le recevez pas, contactez l'administrateur.",
-        "error"
-      );
+    try {
+      if (!MASTER_PIN) {
+        showMessage(
+          "PIN non disponible. Vérifiez votre e-mail/WhatsApp et saisissez-le ci-dessous. Si vous ne le recevez pas, contactez l'administrateur.",
+          "error"
+        );
+        return;
+      }
+
+      if (userPin === String(MASTER_PIN)) {
+        showMessage("Code PIN valide ✅", "success");
+        if (classroomLink) classroomLink.classList.remove("hidden");
+        localStorage.setItem("academyAccessGranted", "1");
+      } else {
+        showMessage("Code PIN invalide ❌", "error");
+      }
+    } catch (err) {
+      console.error("Erreur vérification PIN:", err);
+      showMessage("Erreur réseau lors de la vérification. Veuillez réessayer.", "error");
+    } finally {
       btnValidate.disabled = false;
       btnValidate.classList?.remove("opacity-60", "cursor-not-allowed");
-      return;
     }
-
-    if (userPin === String(MASTER_PIN)) {
-      showMessage("Code PIN valide ✅", "success");
-      classroomLink?.classList.remove("hidden");
-      localStorage.setItem("academyAccessGranted", "1");
-    } else {
-      showMessage("Code PIN invalide ❌", "error");
-    }
-
-    btnValidate.disabled = false;
-    btnValidate.classList?.remove("opacity-60", "cursor-not-allowed");
   }
 
   document.addEventListener("DOMContentLoaded", async () => {
@@ -403,13 +415,15 @@ const PROOF_DELAY_MS = 60 * 1000; // 120 secondes
     if (btnValidate) {
       btnValidate.replaceWith(btnValidate.cloneNode(true));
       const newBtn = document.getElementById("pin-validate");
-      newBtn?.addEventListener("click", checkPinWhenClicked);
+      if (newBtn) newBtn.addEventListener("click", checkPinWhenClicked);
     }
 
-    if (localStorage.getItem("academyAccessGranted") === "1") {
-      classroomLink?.classList.remove("hidden");
-      showMessage("Accès déjà autorisé.", "success");
-    }
+    try {
+      if (localStorage.getItem("academyAccessGranted") === "1" && classroomLink) {
+        classroomLink.classList.remove("hidden");
+        showMessage("Accès déjà autorisé.", "success");
+      }
+    } catch (e) {}
   });
 })();
 
