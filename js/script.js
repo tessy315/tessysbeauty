@@ -372,7 +372,9 @@ const PROOF_DELAY_MS = 60 * 1000; // 120 secondes
     console.log("PIN API data:", data); // 🔍 Gade sa API a retounen
 
     // Eseye jwenn PIN a swa nan 'pin' oswa 'masterPin'
-    MASTER_PIN = data?.pin ?? data?.masterPin ?? null;
+    MASTER_PIN = data?.pin ?? null;
+window.MASTER_PIN = MASTER_PIN; // ← ajoute sa
+
 
     if (MASTER_PIN) {
       console.log("MASTER_PIN set to:", MASTER_PIN);
