@@ -356,22 +356,32 @@ const PROOF_DELAY_MS = 60 * 1000; // 120 secondes
   }
 
   async function fetchMasterPin() {
-    try {
-      const res = await fetch(PIN_API_URL, {
-        method: "GET",
-        cache: "no-cache",
-        headers: { "x-api-key": "admin2025_secret_key" }
-      });
+  try {
+    const res = await fetch(PIN_API_URL, {
+      method: "GET",
+      cache: "no-cache",
+      headers: { "x-api-key": "admin2025_secret_key" }
+    });
 
-      if (!res.ok) {
-        console.warn("PIN fetch failed:", res.status);
-        return;
-      }
+    if (!res.ok) {
+      console.warn("PIN fetch failed:", res.status);
+      return;
+    }
 
-      const data = await res.json().catch(() => null);
-      MASTER_PIN = data?.pin ?? null;
-    } catch (err) {
-      console.error("Erreur lors du fetch PIN:", err);
+    const data = await res.json().catch(() => null);
+    console.log("PIN API data:", data); // 🔍 Gade sa API a retounen
+
+    // Eseye jwenn PIN a swa nan 'pin' oswa 'masterPin'
+    MASTER_PIN = data?.pin ?? data?.masterPin ?? null;
+
+    if (MASTER_PIN) {
+      console.log("MASTER_PIN set to:", MASTER_PIN);
+    } else {
+      console.warn("PIN non disponib nan repons API a.");
+    }
+
+  } catch (err) {
+    console.error("Erreur lors du fetch PIN:", err);
     }
   }
 
