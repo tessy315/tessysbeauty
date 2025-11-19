@@ -336,16 +336,15 @@ const LS_FORM_FILLED_AT = "academyFormFilledAt";
 const LS_FORM_OPENED = "academyFormOpened"; // Flag si moun nan ouvri form nan
 const PROOF_DELAY_MS = 60 * 1000; // 120 secondes
 
-// === ADMIN : GET MASTER PIN FROM NETLIFY ===
-
+// === ADMIN : GET MASTER PIN FROM CLOUDFLARE ===
 (() => {
-  const PIN_API_URL = "https://tessysbeauty.netlify.app/.netlify/functions/pin";
+  const PIN_API_URL = "https://tess.tessysbeautyy.workers.dev/pin";
   const btnValidate = document.getElementById("pin-validate");
   const inputEl = document.getElementById("pin-input");
   const msgEl = document.getElementById("pin-msg");
   const classroomLink = document.getElementById("classroom-link");
 
-  let MASTER_PIN = null; // ✅ cache PIN lokalman
+  let MASTER_PIN = null;
 
   function showMessage(text, type = "info") {
     if (!msgEl) return;
@@ -356,20 +355,10 @@ const PROOF_DELAY_MS = 60 * 1000; // 120 secondes
     else msgEl.classList.add("text-gray-600");
   }
 
-  // Fetch PIN yon sèl fwa lè paj chaje
   async function fetchMasterPin() {
     try {
-      const res = await fetch(PIN_API_URL, {
-        method: "GET",
-        cache: "no-cache",
-        headers: { Authorization: "Bearer admin2025_secret_key"}
-      });
-
-      if (!res.ok) {
-        console.warn("PIN fetch failed:", res.status);
-        return;
-      }
-
+      const res = await fetch(PIN_API_URL, { method: "GET", cache: "no-cache" });
+      if (!res.ok) return console.warn("PIN fetch failed:", res.status);
       const data = await res.json().catch(() => null);
       MASTER_PIN = data?.pin ?? null;
     } catch (err) {
@@ -386,49 +375,41 @@ const PROOF_DELAY_MS = 60 * 1000; // 120 secondes
     btnValidate.classList?.add("opacity-60", "cursor-not-allowed");
     showMessage("Vérification en cours...");
 
-    try {
-      if (!MASTER_PIN) {
-        showMessage(
-          "PIN non disponible. Vérifiez votre e-mail/WhatsApp et saisissez-le ci-dessous. Si vous ne le recevez pas, contactez l'administrateur.",
-          "error"
-        );
-        return;
-      }
-
-      if (userPin === String(MASTER_PIN)) {
-        showMessage("Code PIN valide ✅", "success");
-        if (classroomLink) classroomLink.classList.remove("hidden");
-        localStorage.setItem("academyAccessGranted", "1");
-      } else {
-        showMessage("Code PIN invalide ❌", "error");
-      }
-    } catch (err) {
-      console.error("Erreur vérification PIN:", err);
-      showMessage("Erreur réseau lors de la vérification. Veuillez réessayer.", "error");
-    } finally {
+    if (!MASTER_PIN) {
+      showMessage(
+        "PIN non disponible. Vérifiez votre e-mail/WhatsApp et saisissez-le ci-dessous. Si vous ne le recevez pas, contactez l'administrateur.",
+        "error"
+      );
       btnValidate.disabled = false;
       btnValidate.classList?.remove("opacity-60", "cursor-not-allowed");
+      return;
     }
+
+    if (userPin === String(MASTER_PIN)) {
+      showMessage("Code PIN valide ✅", "success");
+      classroomLink?.classList.remove("hidden");
+      localStorage.setItem("academyAccessGranted", "1");
+    } else {
+      showMessage("Code PIN invalide ❌", "error");
+    }
+
+    btnValidate.disabled = false;
+    btnValidate.classList?.remove("opacity-60", "cursor-not-allowed");
   }
 
   document.addEventListener("DOMContentLoaded", async () => {
-    // 1️⃣ Fetch PIN yon sèl fwa lè paj la chaje
     await fetchMasterPin();
 
-    // 2️⃣ Listener pou bouton
     if (btnValidate) {
       btnValidate.replaceWith(btnValidate.cloneNode(true));
       const newBtn = document.getElementById("pin-validate");
-      if (newBtn) newBtn.addEventListener("click", checkPinWhenClicked);
+      newBtn?.addEventListener("click", checkPinWhenClicked);
     }
 
-    // 3️⃣ Si aksè deja granté nan localStorage, montre classroom link
-    try {
-      if (localStorage.getItem("academyAccessGranted") === "1" && classroomLink) {
-        classroomLink.classList.remove("hidden");
-        showMessage("Accès déjà autorisé.", "success");
-      }
-    } catch (e) {}
+    if (localStorage.getItem("academyAccessGranted") === "1") {
+      classroomLink?.classList.remove("hidden");
+      showMessage("Accès déjà autorisé.", "success");
+    }
   });
 })();
 
