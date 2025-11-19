@@ -451,10 +451,7 @@ function restoreState() {
     else setTimeout(activateProof, PROOF_DELAY_MS - elapsed);
   }
 
-  if (localStorage.getItem("academyAccessGranted") === "1") {
-    document.getElementById("classroom-link").classList.remove("hidden");
-    document.getElementById("pin-msg").textContent = "Accès déjà autorisé.";
-  }
+
 
   // restore bouton "J’ai terminé le formulaire"
   const confirmBtn = document.getElementById("confirm-form-btn");
@@ -601,16 +598,7 @@ document.addEventListener("DOMContentLoaded", () => {
     .getElementById("step4-prev")
     .addEventListener("click", () => showStep(3));
 
-  document.getElementById("pin-validate").addEventListener("click", () => {
-    const val = document.getElementById("pin-input").value.trim();
-    if (val === MASTER_PIN) {
-      document.getElementById("pin-msg").textContent = "Code PIN valide ✅";
-      document.getElementById("classroom-link").classList.remove("hidden");
-      localStorage.setItem("academyAccessGranted", "1");
-    } else {
-      document.getElementById("pin-msg").textContent = "Code PIN invalide ❌";
-    }
-  });
+  
 
   const step5 = document.getElementById("step-5");
   if (step5) step5.classList.remove("hidden");
