@@ -172,7 +172,7 @@ initFadeSlider(
 );
 
 const API_URL =
-  "https://script.google.com/macros/s/AKfycbxhPd5hfU-lmxTKxk5lPCev4ZYXfS7AkyCO5GsbMHPb9ETMhPmZfgj8-dct28xoPtbH/exec";
+  "https://script.google.com/macros/s/AKfycbwQf-_JdtupPMOe6DBVu-hzfCcPHuRVo9P6zUS6fkbVKy0Op2PqrS9O1pghBXPOVGBf/exec";
 
 // --- DOM Elements
 let selectedRating = 0;
