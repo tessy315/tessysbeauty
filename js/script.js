@@ -480,13 +480,13 @@ document.addEventListener("DOMContentLoaded", () => {
     showStep(1);
     window.scrollTo({ top: 0, behavior: "smooth" });
   });
-  document.getElementById("nav-academy").addEventListener("click", (e) => {
-    e.preventDefault();
-    home.classList.add("hidden");
-    academy.classList.remove("hidden");
-    showStep(1);
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  });
+       // document.getElementById("nav-academy").addEventListener("click", (e) => {
+      //  e.preventDefault();
+     // home.classList.add("hidden");
+    //  academy.classList.remove("hidden");
+   //  showStep(1);
+  // window.scrollTo({ top: 0, behavior: "smooth" });
+ // });
 
   document.getElementById("back-home-btn").addEventListener("click", () => {
     academy.classList.add("hidden");
