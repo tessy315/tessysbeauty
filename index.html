@@ -54,8 +54,10 @@
   <meta property="og:video" content="https://res.cloudinary.com/dzrvlahyb/video/upload/v1693300000/VID-20250829-WA0003_pipbbr.mp4" />
 
   <!-- Favicon & Logo -->
-  <link rel="icon" type="image/png" href="https://i.ibb.co/ynmX90YW/1759790410129-removebg-preview.png" />
-  <link rel="apple-touch-icon" href="https://i.ibb.co/ynmX90YW/1759790410129-removebg-preview.png" />
+  <link rel="icon" type="image/png" sizes="128x128" href="https://i.ibb.co/ynmX90YW/1759790410129-removebg-preview.png">
+<link rel="icon" type="image/png" sizes="256x256" href="https://i.ibb.co/ynmX90YW/1759790410129-removebg-preview.png">
+<link rel="apple-touch-icon" sizes="180x180" href="https://i.ibb.co/ynmX90YW/1759790410129-removebg-preview.png">
+<link rel="shortcut icon" href="https://i.ibb.co/ynmX90YW/1759790410129-removebg-preview.png">
 
   <!-- Canonical -->
   <link rel="canonical" href="https://www.tessysbeauty.com/" />
@@ -102,21 +104,22 @@
   <header  id="man-header" class="fixed top-0 left-0 w-full bg-white/80 backdrop-blur-md shadow-sm z-50">
     <div id="header-inner" class="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
       <div class="flex items-center gap-3">
-       <!-- LOGO -->
-    <a href="#" class="flex items-center space-x-2 transition-all duration-500">
-      <img 
-        id="logo"
-        src="https://i.ibb.co/ynmX90YW/1759790410129-removebg-preview.png" 
-        alt="Tessy's Beauty & More Logo" 
-        class="h-12 md:h-16 w-auto max-w-[180px] md:max-w-[250px] object-contain transition-all duration-500"
-      />
+        <!-- LOGO -->
+    <a href="index.html" class="flex items-center space-x-2 transition-all duration-500">
+  <img 
+    id="logo"
+    src="https://i.ibb.co/ynmX90YW/1759790410129-removebg-preview.png" 
+    alt="Tessy's Beauty & More Logo" 
+    class="h-20 md:h-24 w-auto max-w-[200px] md:max-w-[300px] object-contain transition-all duration-500"
+  />
         <span class="text-pink-700 font-semibold text-xl md:text-2xl" style="font-family: 'Nunito', sans-serif;">
   Tessy’s Beauty & More
 </span>
 
+
     </a>
       </div>
-      <nav class="hidden md:flex space-x-6 font-medium flex flex-wrap justify-center md:justify-end"> <ul> <a href="#" id="nav-academy" class="hover:text-pink-500">Academy</a> <a href="#services" class="hover:text-pink-500">Services</a> <a href="#contact" class="hover:text-pink-500">Contact</a>  <a href="#about" class="hover:text-pink-500">À propos</a> </ul> </nav> 
+      <nav class="hidden md:flex space-x-6 font-medium flex flex-wrap justify-center md:justify-end"> <ul> <a href="/academy.html" id="nav-academy" class="hover:text-pink-500">Academy</a> <a href="#services" class="hover:text-pink-500">Services</a> <a href="#contact" class="hover:text-pink-500">Contact</a>  <a href="#about" class="hover:text-pink-500">À propos</a> </ul> </nav> 
       <!-- Hamburger mobile -->
 <div class="md:hidden">
   <button id="hamburger" class="text-pink-600 text-2xl focus:outline-none">
@@ -127,7 +130,7 @@
     
     <!-- Mobile menu -->
 <div id="mobile-menu" class="max-h-0 overflow-hidden transition-[max-height] duration-500 ease-in-out md:hidden flex-col mt-2 space-y-2 text-center">
-  <a href="#" id="nav-academy-mobile" class="hover:text-pink-500 block">Academy</a>
+  <a href="/academy.html" id="nav-academy-mobile" class="hover:text-pink-500 block">Academy</a>
   <a href="#services" class="hover:text-pink-500 block">Services</a>
   <a href="#contact" class="hover:text-pink-500 block">Contact</a>
   <a href="#about" class="hover:text-pink-500 block">À propos</a>
@@ -160,7 +163,7 @@
 
 
       <!-- Bouton pour switch -->
-     <button id="to-academy-btn" class="px-6 py-3 sm:px-4 sm:py-2 bg-pink-600 text-white rounded-none shadow hover:bg-pink-700" style="font-family: 'Nunito', sans-serif; font-weight: 600;">
+     <button onclick="window.location.href='/academy.html'" id="to-academy-btn" class="px-6 py-3 sm:px-4 sm:py-2 bg-pink-600 text-white rounded-none shadow hover:bg-pink-700" style="font-family: 'Nunito', sans-serif; font-weight: 600;">
   Suivez nos Formations
 </button>
 
@@ -271,7 +274,7 @@
     <p class="text-lg md:text-xl max-w-2xl drop-shadow-md">
       Découvrez nos nouvelles sessions et promotions pour sublimer votre beauté.
     </p>
-    <button id="to-academy-btn-2"
+    <button onclick="window.location.href='/academy.html'" id="to-academy-btn-2"
   class="mt-6 px-6 py-2 border border-white/50 text-white text-sm md:text-base transition hover:bg-white/10 hover:border-white/70">
   Voir les sessions
 </button>
@@ -322,241 +325,7 @@
     </div>
   </div> 
 </section>
-
-
-
-
   </main>
-
-  <!-- ACADEMY -->
-  <section id="academy" class="hidden py-16 px-4 sm:px-6 bg-pink-50" style="margin-top: 100px;">
-  <div class="max-w-4xl mx-auto text-center">
-
-    
-   <!-- Logo -->
-    <img src="https://i.ibb.co/7FBjbz3/1761006379858-1-removebg-preview.png" 
-         alt="Tessy's Academy Logo" 
-         class="mx-auto mb-4 w-24 sm:w-28 md:w-36 transition-transform hover:scale-105">
-<!-- Tit -->
-    <h2 class="text-5xl md:text-6xl text-pink-700 mb-4 drop-shadow-sm" style="font-family: 'Great Vibes', cursive;">
-      Bienvenue!
-    </h2>
-    <!-- Subtitle / phrase introductive -->
-    <p class="text-gray-800 text-lg md:text-xl tracking-normal tracking-tight" style="font-family: 'Nunito', cursive;">
-      Votre parcours d'apprentissage commence ici ! Explorez nos nouvelles sessions pour sublimer votre beauté.
-    </p>
-    <button id="back-home-btn"  class="px-5 py-2 sm:px-6 sm:py-3 bg-pink-600 text-white shadow-md hover:bg-pink-700 transition-all rounded-none text-sm sm:text-base">← Page D'Acceuil</button>
-
-    <div class="w-full bg-gray-200 h-3 mb-8 mt-6"> 
-  <div id="progress-bar" class="bg-pink-600 h-3" style="width:16.66%"></div>
-</div>
-
-
-    <div class="space-y-8 text-left max-w-3xl mx-auto">
-
-      <!-- Step 1 -->
-     
-<div id="step-1" class="step"> 
-  <h3 class="text-xl font-semibold mb-4">1. Formulaire d'inscription</h3>
-  
-  <!-- Bouton ouvri fòm -->
-  <button id="open-form-btn" 
-          class="px-4 py-2 bg-blue-500 text-white rounded-none mt-2 shadow-sm hover:bg-blue-600 transition">
-    Ouvrir le formulaire d’inscription
-  </button>
-  
-  <!-- Bouton konfimasyon -->
-  <button id="confirm-form-btn" 
-          class="ml-2 px-4 py-2 bg-gray-300 text-gray-600 rounded-none mt-2 cursor-not-allowed shadow-sm" 
-          disabled>
-    J’ai terminé le formulaire
-  </button>
-</div>
-
-
-      <!-- Step 2 -->
-      <div id="step-2" class="hidden">
-        <h3 class="text-gray-800 text-lg md:text-xl tracking-normal tracking-tight" style="font-family: 'Nunito', cursive;">2. Information Paiement</h3>
-        <p class="mt-2">Options : MonCash (36 21 73 00, Nom: Tessy Jean) ou Sogebank (HTG: 901227090 · USD: 911092419).</p>
-        <img src="https://i.ibb.co/vxNNvXp3/Tessy-Moncash-Qr-Code1.png" alt="QR Code MonCash" class="mx-auto my-4 max-w-xs md:max-w-sm rounded-md shadow"/>
-        <div class="flex justify-between mt-4">
-          <button id="step2-prev" class="px-4 py-2 bg-gray-300 rounded-none hover:bg-gray-400">Étape précédente</button>
-          <button id="step2-next" class="px-4 py-2 bg-pink-600 text-white rounded-none hover:bg-pink-700">Étape suivante</button>
-        </div>
-      </div>
-
-      <!-- Step 3 -->
-      <div id="step-3" class="hidden">
-        <h3 class="text-2xl font-bold mb-2">3. Soumettre preuve de paiement</h3>
-        <p class="mb-4 text-gray-600">Effectuez votre paiement puis soumettez votre preuve via WhatsApp.</p>
-        <a id="proof-btn" href="javascript:void(0)"
-           class="inline-block px-6 py-3 bg-gray-300 text-gray-600 rounded-none cursor-not-allowed mb-2">
-           Soumettre preuve de paiement (WhatsApp)
-        </a>
-        <p id="proof-helper" class="text-sm italic text-gray-500 mb-2">
-         💡Veuillez remplir le formulaire d'inscription d'abord, puis effectuer votre paiement et revenir à cette étape aussitôt après.
-        </p>
-        <div class="flex justify-between mt-4">
-          <button id="step3-prev" class="px-4 py-2 bg-gray-300 rounded-none hover:bg-gray-400">Étape précédente</button>
-          <button id="proof-next" class="px-4 py-2 bg-gray-300 text-gray-600 rounded-none cursor-not-allowed" disabled>Étape suivante</button>
-        </div>
-      </div>
-
-      <!-- Step 4 -->
-      <div id="step-4" class="hidden">
-        <h3 class="text-2xl font-bold mb-2">4. Accéder au Google Classroom</h3>
-        <p class="mb-4 text-gray-600">Un code PIN vous sera donné sur WhatsApp après validation de votre paiement.</p>
-        <input type="text" id="pin-input" placeholder="Entrez le PIN reçu"
-               class="px-4 py-2 border rounded-none mb-2 w-full"/>
-        <button id="pin-validate" class="px-6 py-3 bg-pink-600 text-white rounded-none shadow hover:bg-pink-700 mb-2">
-          Valider PIN
-        </button>
-        <p id="pin-msg" class="text-sm italic text-gray-500 mb-2"></p>
-        <a id="classroom-link" href="https://classroom.google.com/c/ODMwMjAzNjgzODg2?cjc=fztnyvp7" target="_blank"
-           class="hidden px-6 py-3 bg-pink-600 text-white rounded-none shadow hover:bg-pink-700">
-           Accéder au Google Classroom
-        </a>
-        <div class="flex justify-between mt-4">
-          <button id="step4-prev" class="px-4 py-2 bg-gray-300 rounded-none hover:bg-gray-400">Étape précédente</button>
-        </div>
-      </div>
-
-      <!-- Step 5 fixe -->
-      <div id="step-5" class="mt-16 text-left">
-        <h3 class="text-3xl font-semibold text-pink-600 mb-8 text-center">Ressources & Infos</h3>
-
-       <!-- Vidéo d’Inscription et Paiement -->
-<div class="mb-8 p-6 bg-white rounded-none shadow text-center">
-  <h4 class="text-3xl font-italic text-pink-600 mb-4">Comment s’inscrire et payer</h4>
-  <p class="text-gray-800 text-lg md:text-xl tracking-normal tracking-tight" style="font-family: 'Nunito', cursive;">Suivez cette animation pour apprendre comment vous inscrire, effectuer le paiement et accéder à vos cours.</p>
-
-  <!-- Vidéo responsive Cloudinary -->
-  <div class="relative w-full max-w-3xl mx-auto overflow-hidden shadow-lg" style="padding-top: 56.25%;">
-    <video class="absolute top-0 left-0 w-full h-full object-cover" autoplay muted loop controls>
-      <source src="https://res.cloudinary.com/votre-cloud/video/upload/vXXXXXX/animation.mp4" type="video/mp4">
-      Votre navigateur ne supporte pas la lecture de vidéos.
-    </video>
-  </div>
-</div>
-
-
-       <!-- Formats de Cours (Fade Slider Style) -->
-<section id="formats-section" class="relative py-20 px-4 bg-gradient-to-tr from-pink-50 via-white to-pink-100 backdrop-blur-lg overflow-hidden">
-
-  <div class="max-w-3xl mx-auto text-center mb-12">
-    <h3 class="text-3xl font-italic text-pink-700 drop-shadow mb-2">Formats de Cours</h3>
-    <p class="text-gray-800 text-lg md:text-xl tracking-normal tracking-tight" style="font-family: 'Nunito', cursive;">Choisissez la formule qui s’adapte le mieux à votre emploi du temps et à vos objectifs</p>
-  </div>
-
-  <!-- Slider Container -->
-  <div class="relative overflow-hidden shadow-2xl rounded-none">
-    <div id="formats-slides" class="relative h-[28rem] sm:h-[32rem]">
-
-      <!-- Slide 1 -->
-      <div class="slide format-slide absolute inset-0 opacity-0 transition-opacity duration-700 flex flex-col justify-center items-center text-center p-6 bg-white/10 backdrop-blur-lg">
-        <div class="w-full h-64 sm:h-72 overflow-hidden mb-4 rounded-none">
-          <img src="https://i.ibb.co/fd59MyJw/Class-Online.jpg" alt="Cours en Ligne" class="w-full h-full object-contain bg-white">
-        </div>
-        <h4 class="text-xl font-italic mb-2 text-pink-700">Online Edition</h4>
-        <p class="text-gray-800 text-lg md:text-xl tracking-normal tracking-tight" style="font-family: 'Nunito', cursive;">✔ Formation 100% en ligne — flexible, accessible, idéale pour apprendre à votre rythme.</p>
-        <p class="text-gray-800 text-lg md:text-xl tracking-normal tracking-tight" style="font-family: 'Nunito', cursive;">✘ Moins d’interaction directe.</p>
-      </div>
-
-      <!-- Slide 2 -->
-      <div class="slide format-slide absolute inset-0 opacity-0 transition-opacity duration-700 flex flex-col justify-center items-center text-center p-6 bg-white/10 backdrop-blur-lg">
-        <div class="w-full h-64 sm:h-72 overflow-hidden mb-4 rounded-none">
-          <img src="https://i.ibb.co/TBnZymHK/Class-Presentiel.jpg" alt="Présentiel" class="w-full h-full object-cover">
-        </div>
-        <h4 class="text-xl font-italic mb-2 text-pink-700">Présentiel (Séminaire)</h4>
-        <p class="text-gray-800 text-lg md:text-xl tracking-normal tracking-tight" style="font-family: 'Nunito', cursive;">✔ Formation pratique en atelier — immersion totale, networking et suivi personnalisé.</p>
-        <p class="text-gray-800 text-lg md:text-xl tracking-normal tracking-tight" style="font-family: 'Nunito', cursive;">✘ Déplacements requis.</p>
-      </div>
-
-      <!-- Slide 3 -->
-      <div class="slide format-slide absolute inset-0 opacity-0 transition-opacity duration-700 flex flex-col justify-center items-center text-center p-6 bg-white/10 backdrop-blur-lg">
-        <div class="w-full h-64 sm:h-72 overflow-hidden mb-4 rounded-none">
-          <img src="https://i.ibb.co/Y7xDVFRP/Class-Combo.jpg" alt="Combo" class="w-full h-full object-contain bg-white">
-        </div>
-        <h4 class="text-xl font-italic mb-2 text-pink-700">Combo</h4>
-        <p class="text-gray-800 text-lg md:text-xl tracking-normal tracking-tight" style="font-family: 'Nunito', cursive;">✔ Combinez le meilleur des deux mondes — cours en ligne + ateliers pratiques pour une expérience complète.</p>
-        <p class="text-gray-800 text-lg md:text-xl tracking-normal tracking-tight" style="font-family: 'Nunito', cursive;">✘ Plus long & un peu plus coûteux.</p>
-      </div>
-
-    </div>
-
-    <!-- Navigation -->
-    <div class="flex justify-center items-center gap-4 mt-4">
-      <button id="formats-prev" class="text-pink-700 text-lg opacity-40 hover:opacity-70 transition font-handwriting">&lt;</button>
-      <span id="formats-counter" class="text-pink-700 text-sm opacity-40 font-handwriting">1 / 3</span>
-      <button id="formats-next" class="text-pink-700 text-lg opacity-40 hover:opacity-70 transition font-handwriting">&gt;</button>
-    </div>
-  </div>
-</section>
-
-
-<!-- Mini Banner Documents Fournis -->
-<div class="mb-8 w-full overflow-hidden rounded-none shadow">
-  <img src="https://i.ibb.co/PnRW9v8/minibaner.png" alt="Documents Fournis" class="w-full h-auto object-cover">
-</div>
-
-
-  </div>
-
-<!-- === Avis & Notes Section (Tessy’s Beauty Style) === -->
-<section id="reviews" class="relative py-20 px-4 bg-gradient-to-tr from-pink-50 via-white to-pink-100 backdrop-blur-lg overflow-hidden">
-  <div class="max-w-3xl mx-auto text-center mb-10">
-    <h3 class="text-3xl font-italic text-pink-700 drop-shadow mb-2">Avis & Notes</h3>
-    <p class="text-gray-800 text-lg md:text-xl tracking-normal tracking-tight" style="font-family: 'Nunito', cursive;">Partagez votre expérience ou découvrez ce que les autres disent de Tessy’s Beauty & More</p>
-  </div>
-
-  <!-- Bouton Ajouter un avis -->
-  <div class="text-center mb-8">
-    <button id="open-review-form" class="bg-pink-600 hover:bg-pink-700 text-white px-6 py-2 rounded-none shadow-md transition">
-      + Ajouter un avis
-    </button>
-  </div>
-
-  <!-- Liste des avis -->
-  <div id="reviews-list" class="max-w-4xl mx-auto grid gap-6 sm:grid-cols-2">
-    <!-- Les avis s’affichent ici par JS -->
-  </div>
-
-  <!-- Formulaire popup -->
-  <div id="review-popup" class="fixed inset-0 bg-black/50 hidden justify-center items-center z-50">
-    <div class="bg-white rounded-none shadow-lg p-6 max-w-md w-full mx-2 relative">
-      <button id="close-popup" class="absolute top-3 right-4 text-gray-500 hover:text-pink-600 text-2xl">&times;</button>
-      <h4 class="text-xl font-semibold text-pink-700 mb-4 text-center">Laisser un avis</h4>
-
-      <form id="review-form" class="flex flex-col gap-4">
-        <input type="text" id="review-name" placeholder="Votre nom" required class="border rounded-none p-2 focus:ring-2 focus:ring-pink-400 outline-none">
-        <textarea id="review-message" placeholder="Votre avis..." required class="border rounded-none p-2 focus:ring-2 focus:ring-pink-400 outline-none"></textarea>
-
-        <!-- Stars -->
-        <div class="flex justify-center gap-2 text-2xl text-gray-400" id="rating-stars">
-          <span data-value="1" class="cursor-pointer">★</span>
-          <span data-value="2" class="cursor-pointer">★</span>
-          <span data-value="3" class="cursor-pointer">★</span>
-          <span data-value="4" class="cursor-pointer">★</span>
-          <span data-value="5" class="cursor-pointer">★</span>
-        </div>
-
-        <!-- Upload image -->
-        <input type="file" id="review-image" accept="image/*" class="border p-2 rounded-none">
-
-        <button type="submit" class="bg-pink-600 hover:bg-pink-700 text-white font-semibold py-2 rounded-none transition">
-          Publier mon avis
-        </button>
-      </form>
-    </div>
-  </div>
-</section>
-
-   
-     </div>
-            </div>
-       
-</section>
-
 <!-- Contact -->
 <section id="contact" class="relative py-20 px-6 bg-gradient-to-br from-pink-100 via-white to-pink-200 backdrop-blur-lg">
   <div class="max-w-3xl mx-auto text-center bg-white/30 backdrop-blur-lg p-10 shadow-xl border border-white/40 glow-border">
