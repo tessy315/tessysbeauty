@@ -277,117 +277,27 @@ if (urlParams.get("step") === "2") {
     showMessage("Accès déjà autorisé.", "success");
   }
 
-  function showStep(step) {
-    const steps = [1, 2, 3, 4];
-    steps.forEach(s => $( "step-" + s)?.classList.add("hidden"));
-    $("step-" + step)?.classList.remove("hidden");
-    $("progress-bar") && ($("progress-bar").style.width = (step / steps.length) * 100 + "%");
-    localStorage.setItem(LS_STEP, step);
-  }
-
-  function restoreState() {
-    const step = parseInt(localStorage.getItem(LS_STEP) || "1", 10);
-    showStep(step);
-
-    const ts = Number(localStorage.getItem(LS_FORM_FILLED_AT) || 0);
-    if (ts) {
-      const elapsed = Date.now() - ts;
-      if (elapsed >= PROOF_DELAY_MS) activateProof();
-      else setTimeout(activateProof, PROOF_DELAY_MS - elapsed);
-    }
-  }
-
-  function activateProof() {
-    const proofBtn = $("proof-btn");
-    const proofNext = $("proof-next");
-    const helper = $("proof-helper");
-
-    if (proofBtn) {
-      proofBtn.classList.remove("cursor-not-allowed", "bg-gray-300", "text-gray-600");
-      proofBtn.classList.add("bg-green-500", "text-white");
-      proofBtn.disabled = false;
-      on(proofBtn, "click", e => {
-        e.preventDefault();
-        window.open("https://wa.me/50939310139", "_blank", "noopener,noreferrer");
-      });
-    }
-
-    if (proofNext) {
-      proofNext.disabled = false;
-      proofNext.classList.remove("cursor-not-allowed", "bg-gray-300");
-      proofNext.classList.add("bg-pink-600", "text-white");
-    }
-
-    if (helper) helper.textContent = "Bouton activé ✅ — envoyez votre preuve sur WhatsApp puis cliquez sur 'Étape suivante'.";
-  }
-
-  restoreState();
-
-  const home = $("home");
-  const academy = $("academy");
-
-  // Home <-> Academy navigation
-  on($("to-academy-btn"), "click", () => { home?.classList.add("hidden"); academy?.classList.remove("hidden"); showStep(1); window.scrollTo({ top: 0, behavior: "smooth" }); });
-  on($("to-academy-btn-2"), "click", () => { home?.classList.add("hidden"); academy?.classList.remove("hidden"); showStep(1); window.scrollTo({ top: 0, behavior: "smooth" }); });
-  on($("back-home-btn"), "click", () => { academy?.classList.add("hidden"); home?.classList.remove("hidden"); window.scrollTo({ top: 0, behavior: "smooth" }); });
-
-  // Open & confirm form buttons
- 
-const openFormBtn = document.getElementById("open-form-btn");
-const FORM_URL = "https://www.tessysbeauty.com/formulaire";
-
-if (openFormBtn) {
-  openFormBtn.addEventListener("click", () => {
-    const newWindow = window.open(FORM_URL, "_blank");
-
-    if (!newWindow) {
-      showExternalBrowserWarning();
-    }
-  });
-}
-
-function showExternalBrowserWarning() {
-  if (document.getElementById("form-warning")) return;
-
-  const warning = document.createElement("div");
-  warning.id = "form-warning";
-  warning.className = `
-    fixed top-0 left-1/2 -translate-x-1/2
-    bg-yellow-100 border-l-4 border-yellow-500
-    text-yellow-700 p-4 z-50 max-w-md text-center
-    rounded shadow-lg transition-transform duration-500
-    transform -translate-y-20
-  `;
   
-  warning.innerHTML = `
-    Appuyez sur le bouton ci-dessous pour l'ouvrir dans votre navigateur :
-    <br><br>
-    <button id="open-external-btn" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
-      Ouvrir dans le navigateur
-    </button>
-  `;
-
-  document.body.appendChild(warning);
-
-  // slide-in
-  setTimeout(() => {
-    warning.style.transform = "translateY(20px) translateX(-50%)";
-  }, 50);
-
-  document.getElementById("open-external-btn").addEventListener("click", () => {
-    window.open(FORM_URL, "_blank");
-    warning.style.transform = "-translate-y-20 translateX(-50%)";
-    setTimeout(() => warning.remove(), 500);
-  });
+function showStep(step) {
+  document.querySelectorAll(".step").forEach(el => el.classList.add("hidden"));
+  document.getElementById("step" + step).classList.remove("hidden");
 }
 
+/* Auto-open correct step if redirected from GAS */
+const urlParams = new URLSearchParams(window.location.search);
+if (urlParams.get("step") === "2") {
+  showStep(2);
+} else {
+  showStep(1); // default
+}
 
-  // Step navigation buttons
-  on($("step2-prev"), "click", () => showStep(1));
-  on($("step2-next"), "click", () => showStep(3));
-  on($("step3-prev"), "click", () => showStep(2));
-  on($("proof-next"), "click", () => showStep(4));
-  on($("step4-prev"), "click", () => showStep(3));
+/* Step Navigation Buttons */
+document.getElementById("step2-next")?.addEventListener("click", () => showStep(3));
+document.getElementById("step3-next")?.addEventListener("click", () => showStep(4));
+
+document.getElementById("step2-prev")?.addEventListener("click", () => showStep(1));
+document.getElementById("step3-prev")?.addEventListener("click", () => showStep(2));
+document.getElementById("step4-prev")?.addEventListener("click", () => showStep(3));
 
   $("step-5")?.classList.remove("hidden");
 
