@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Tessy's Beauty Academy – Formulaire d'inscription</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+</head>
+<body class="min-h-screen bg-gradient-to-b from-pink-100 to-white text-gray-800">
+
+  <!-- Header -->
+  <header id="man-header" class="fixed top-0 left-0 w-full bg-white/80 backdrop-blur-md shadow-sm z-50">
+    <div id="header-inner" class="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <a href="index.html" class="flex items-center space-x-1 transition-all duration-500">
+          <img id="logo" src="https://i.ibb.co/ynmX90YW/1759790410129-removebg-preview.png" alt="Tessy's Beauty & More Logo" class="h-14 sm:h-14 md:h-20 w-auto max-w-[160px] sm:max-w-[160px] md:max-w-[260px] object-contain transition-all duration-500"/>
+          <span class="text-pink-700 font-semibold text-xl md:text-2xl" style="font-family: 'Nunito', sans-serif;">Tessy’s Beauty & More</span>
+        </a>
+      </div>
+      <nav class="hidden md:flex space-x-6 font-medium flex flex-wrap justify-center md:justify-end">
+        <ul>
+          <a href="/index.html" class="hover:text-pink-500">Accueil</a>
+          <a href="/academy.html" id="nav-academy" class="hover:text-pink-500">Academy</a>
+          <a href="#contact" class="hover:text-pink-500">Contact</a>
+        </ul>
+      </nav>
+      <div class="md:hidden">
+        <button id="hamburger" class="text-pink-600 text-2xl focus:outline-none">&#9776;</button>
+      </div>
+    </div>
+    <div id="mobile-menu" class="max-h-0 overflow-hidden transition-[max-height] duration-500 ease-in-out md:hidden flex-col mt-2 space-y-2 text-center">
+      <a href="/index.html" class="hover:text-pink-500 block">Accueil</a>  
+      <a href="/academy" id="nav-academy-mobile" class="hover:text-pink-500 block">Academy</a>
+      <a href="#contact" class="hover:text-pink-500 block">Contact</a>
+    </div>
+  </header>
+
+  <!-- Main Form -->
+  <main class="pt-24 max-w-3xl mx-auto px-4">
+    <h2 class="text-3xl font-bold mb-6 text-pink-600">Formulaire d'inscription</h2>
+
+    <form class="space-y-6 bg-white p-6 rounded shadow-lg" id="academy-form">
+      <!-- Field 1: Nom -->
+      <div>
+        <label class="block mb-1 font-medium" for="nom">Nom *</label>
+        <input type="text" id="nom" name="nom" required class="w-full border border-gray-300 px-3 py-2 rounded-none focus:outline-none focus:ring-2 focus:ring-pink-500">
+      </div>
+
+      <!-- Field 2: Prénom -->
+      <div>
+        <label class="block mb-1 font-medium" for="prenom">Prénom *</label>
+        <input type="text" id="prenom" name="prenom" required class="w-full border border-gray-300 px-3 py-2 rounded-none focus:outline-none focus:ring-2 focus:ring-pink-500">
+      </div>
+
+      <!-- Field 3: Adresse -->
+      <div>
+        <label class="block mb-1 font-medium" for="adresse">Adresse *</label>
+        <input type="text" id="adresse" name="adresse" required class="w-full border border-gray-300 px-3 py-2 rounded-none focus:outline-none focus:ring-2 focus:ring-pink-500">
+      </div>
+
+      <!-- Field 4: Email -->
+      <div>
+        <label class="block mb-1 font-medium" for="email">Email *</label>
+        <input type="email" id="email" name="email" required class="w-full border border-gray-300 px-3 py-2 rounded-none focus:outline-none focus:ring-2 focus:ring-pink-500">
+      </div>
+
+      <!-- Field 5: Sexe -->
+      <div>
+        <label class="block mb-1 font-medium">Sexe *</label>
+        <select id="sexe" name="sexe" required class="w-full border border-gray-300 px-3 py-2 rounded-none focus:outline-none focus:ring-2 focus:ring-pink-500">
+          <option value="">Sélectionnez</option>
+          <option value="Femme">Femme</option>
+          <option value="Homme">Homme</option>
+          <option value="Autre">Autre</option>
+        </select>
+      </div>
+
+      <!-- Field 6: Numéro de téléphone -->
+      <div>
+        <label class="block mb-1 font-medium" for="telephone">Numéro de téléphone *</label>
+        <input type="tel" id="telephone" name="telephone" required class="w-full border border-gray-300 px-3 py-2 rounded-none focus:outline-none focus:ring-2 focus:ring-pink-500">
+      </div>
+
+      <!-- Field 7: Expérience maquillage -->
+      <div>
+        <label class="block mb-1 font-medium">Avez-vous déjà une expérience en maquillage ? *</label>
+        <div class="flex gap-4">
+          <label class="flex items-center gap-1"><input type="radio" name="experience" value="Oui" required class="rounded-none"> Oui</label>
+          <label class="flex items-center gap-1"><input type="radio" name="experience" value="Non" required class="rounded-none"> Non</label>
+          <label class="flex items-center gap-1"><input type="radio" name="experience" value="Un peu" required class="rounded-none"> Un peu</label>
+        </div>
+      </div>
+
+      <!-- Field 8: Comment avez-vous entendu parler de nous -->
+      <div>
+        <label class="block mb-1 font-medium">Comment avez-vous entendu parler de nous ? *</label>
+        <div class="flex flex-col gap-1">
+          <label class="flex items-center gap-1"><input type="checkbox" name="source[]" value="Facebook" required class="rounded-none"> Facebook</label>
+          <label class="flex items-center gap-1"><input type="checkbox" name="source[]" value="Instagram" required class="rounded-none"> Instagram</label>
+          <label class="flex items-center gap-1"><input type="checkbox" name="source[]" value="Whatsapp" required class="rounded-none"> Whatsapp</label>
+          <label class="flex items-center gap-1"><input type="checkbox" name="source[]" value="Autre" required class="rounded-none"> Autre</label>
+        </div>
+      </div>
+
+      <!-- Field 9: Profession -->
+      <div>
+        <label class="block mb-1 font-medium" for="profession">Profession *</label>
+        <input type="text" id="profession" name="profession" required class="w-full border border-gray-300 px-3 py-2 rounded-none focus:outline-none focus:ring-2 focus:ring-pink-500">
+      </div>
+
+      <!-- Field 10: Qu'attendez-vous de cette formation ? -->
+      <div>
+        <label class="block mb-1 font-medium" for="attentes">Qu'attendez-vous de cette formation ? *</label>
+        <textarea id="attentes" name="attentes" rows="4" required class="w-full border border-gray-300 px-3 py-2 rounded-none focus:outline-none focus:ring-2 focus:ring-pink-500"></textarea>
+      </div>
+
+      <!-- Field 11: Confirmez votre engagement -->
+      <div>
+        <label class="flex items-start gap-2">
+          <input type="checkbox" name="engagement" required class="rounded-none mt-1">
+          <span>
+            Je comprends que les frais de participation sont de 1 000 HTG pour un accès complet à la formation 100 % en ligne, et de 7 500 HTG pour réserver ma place en présentiel et obtenir mon certificat à la fin de la session. Je confirme mon inscription *
+          </span>
+        </label>
+      </div>
+
+      <!-- Submit Button -->
+      <div>
+        <button type="submit" class="w-full bg-pink-600 text-white px-4 py-2 rounded-none hover:bg-pink-700 transition-colors">Envoyer</button>
+      </div>
+    </form>
+
+    <!-- Confirmation Message -->
+    <div id="confirmation-message" class="hidden mt-6 p-6 bg-green-100 border-l-4 border-green-500 text-green-800 rounded transform -translate-y-10 opacity-0 transition-all duration-700">
+      <h3 class="font-bold text-lg mb-2">Confirmation d’inscription reçue ✔️</h3>
+      <p>Merci d’avoir rempli le formulaire.<br>
+      Veuillez régler les 1 000 HTG correspondant aux frais d’inscription et à l’accès en ligne.</p>
+      <p>Votre demande est actuellement en cours de traitement. Vous recevrez une confirmation par WhatsApp dans les plus brefs délais, accompagnée des prochaines étapes.</p>
+      <p>Frais de participation restants (présentiel) : 7 500 HTG<br>
+      (Payables avant le début de la formation en présentiel.)</p>
+      <p>Pour toute question ou précision, n’hésitez pas à nous contacter directement via WhatsApp.<br>
+      👉 <a href="https://chat.whatsapp.com/Hds77yyxs8QCz38AiPU11Q" target="_blank" class="text-blue-600 underline">Rejoignez le groupe ici</a></p>
+    </div>
+  </main>
+
+  <!-- Contact + Footer -->
+  <section id="contact" class="relative py-20 px-6 bg-gradient-to-br from-pink-100 via-white to-pink-200 backdrop-blur-lg">
+    <div class="max-w-3xl mx-auto text-center bg-white/30 backdrop-blur-lg p-10 shadow-xl border border-white/40 glow-border">
+      <h3 class="text-3xl font-italic mb-6 text-pink-700">Contactez-nous</h3>
+      <p class="text-gray-800 text-lg md:text-xl tracking-normal tracking-tight" style="font-family: 'Nunito', cursive;">
+        Pour plus d'informations ou pour une réservation, contactez-nous via WhatsApp ou email.
+      </p>
+
+      <div class="flex flex-col items-center gap-4">
+        <a href="https://wa.me/50939310139" target="_blank" rel="noopener noreferrer"
+           class="group relative overflow-hidden inline-block bg-green-500 text-white font-italic px-6 py-3 rounded-none shadow-lg transition-transform duration-300 hover:scale-105">
+          <span class="relative z-10">Écrivez-nous sur WhatsApp</span>
+          <span class="absolute inset-0 bg-gradient-to-r from-green-400 via-white to-green-500 opacity-0 group-hover:opacity-30 transition duration-700"></span>
+        </a>
+
+        <a href="mailto:tessysbeautyy@gmail.com"
+           class="group relative overflow-hidden inline-block bg-pink-500 text-white font-italic px-6 py-3 rounded-none shadow-lg transition-transform duration-300 hover:scale-105">
+          <span class="relative z-10"> Envoyez-nous un email</span>
+          <span class="absolute inset-0 bg-gradient-to-r from-pink-400 via-white to-pink-500 opacity-0 group-hover:opacity-30 transition duration-700"></span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="bg-pink-600 text-white text-center py-6 px-4 relative">
+    <p class="text-xs italic text-white/80 mb-2 flex justify-center items-center gap-1">ℹ️Certaines images sur ce site sont des illustrations générées.</p>
+    <p class="mb-3">
+      <a href="https://docs.google.com/document/d/18MLlfHRXgH2eMLH0FdQL-bQ__Xi5FQ9ZkJpWQGpyM4I/edit?usp=drivesdk"
+         target="_blank"
+         class="text-white italic hover:text-pink-300 hover:underline transition-colors duration-300">Termes & Conditions</a>
+    </p>
+    <div class="flex justify-center gap-6 mb-3">
+      <a href="https://www.facebook.com/share/19vWzQBaC6/" target="_blank" aria-label="Facebook" class="text-white/90 hover:text-white transition-transform duration-300 hover:scale-110"><i class="fab fa-facebook-f text-xl"></i></a>
+      <a href="https://www.instagram.com/tessysbeautyy" target="_blank" aria-label="Instagram" class="text-white/90 hover:text-white transition-transform duration-300 hover:scale-110"><i class="fab fa-instagram text-xl"></i></a>
+      <a href="https://www.tiktok.com/@tessysbeauty" target="_blank" aria-label="TikTok" class="text-white/90 hover:text-white transition-transform duration-300 hover:scale-110"><i class="fab fa-tiktok text-xl"></i></a>
+    </div>
+    <p class="text-sm text-white/90">© 2025 Tessy’s Beauty & More | Tous droits réservés.</p>
+  </footer>
+
+ <script src="js/script.js"></script>
+
+</body>
+</html>
