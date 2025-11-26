@@ -405,3 +405,49 @@ if (openFormBtn) {
   if (contactBtn) contactBtn.href = "https://wa.me/50939310139";
 
 });
+
+//Forms Script
+const API_URL = "https://script.google.com/macros/s/AKfycbyv940oyUz1kaoEB4ZU84tVgdz95z4dfX4R8-uwR5aMkqc1dZ7_N6V7jYsfw6b79RxI/exec
+";
+
+form.addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+  const formData = {
+    nom: document.getElementById("nom").value,
+    prenom: document.getElementById("prenom").value,
+    adresse: document.getElementById("adresse").value,
+    email: document.getElementById("email").value,
+    sexe: document.getElementById("sexe").value,
+    telephone: document.getElementById("telephone").value,
+    experience: document.querySelector('input[name="experience"]:checked')?.value || "",
+    source: Array.from(document.querySelectorAll('input[name="source[]"]:checked')).map(cb => cb.value),
+    profession: document.getElementById("profession").value,
+    attentes: document.getElementById("attentes").value,
+    engagement: document.querySelector('input[name="engagement"]').checked ? "Oui" : "Non"
+  };
+
+  try {
+    const res = await fetch(API_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(formData)
+    });
+
+    const data = await res.json();
+
+    if (data.status === "success") {
+      form.reset();
+      document.getElementById("confirmation-message").classList.remove("hidden");
+      setTimeout(() => {
+        document.getElementById("confirmation-message").classList.add("hidden");
+      }, 10000);
+    } else {
+      alert("Erreur: " + data.message);
+    }
+
+  } catch (err) {
+    console.error(err);
+    alert("Une erreur est survenue.");
+  }
+});
