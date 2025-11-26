@@ -407,12 +407,17 @@ if (openFormBtn) {
 });
 
 //Forms Script
-const API_URL = "https://script.google.com/macros/s/AKfycbyv940oyUz1kaoEB4ZU84tVgdz95z4dfX4R8-uwR5aMkqc1dZ7_N6V7jYsfw6b79RxI/exec
-";
+// 1️⃣ Defini fòm nan
+const form = document.getElementById("academy-form");
 
+// 2️⃣ API URL (retire newline oswa espas)
+const API_URL = "https://script.google.com/macros/s/AKfycbyv940oyUz1kaoEB4ZU84tVgdz95z4dfX4R8-uwR5aMkqc1dZ7_N6V7jYsfw6b79RxI/exec";
+
+// 3️⃣ Submit event
 form.addEventListener("submit", async (e) => {
-  e.preventDefault();
+  e.preventDefault(); // anpeche submit default
 
+  // 4️⃣ Ranmase done fòm nan
   const formData = {
     nom: document.getElementById("nom").value,
     prenom: document.getElementById("prenom").value,
@@ -427,6 +432,8 @@ form.addEventListener("submit", async (e) => {
     engagement: document.querySelector('input[name="engagement"]').checked ? "Oui" : "Non"
   };
 
+  console.log("Données envoyées:", formData); // debug nan console
+
   try {
     const res = await fetch(API_URL, {
       method: "POST",
@@ -438,9 +445,14 @@ form.addEventListener("submit", async (e) => {
 
     if (data.status === "success") {
       form.reset();
-      document.getElementById("confirmation-message").classList.remove("hidden");
+      const msg = document.getElementById("confirmation-message");
+      msg.classList.remove("hidden", "opacity-0", "-translate-y-10");
+      msg.classList.add("opacity-100", "translate-y-0");
+
+      // fè mesaj disparèt apre 10s
       setTimeout(() => {
-        document.getElementById("confirmation-message").classList.add("hidden");
+        msg.classList.add("opacity-0", "-translate-y-10");
+        msg.classList.remove("opacity-100", "translate-y-0");
       }, 10000);
     } else {
       alert("Erreur: " + data.message);
@@ -451,3 +463,4 @@ form.addEventListener("submit", async (e) => {
     alert("Une erreur est survenue.");
   }
 });
+
