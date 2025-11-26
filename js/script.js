@@ -14,6 +14,12 @@ function on(el, event, fn) {
 // ------------------------------
 document.addEventListener("DOMContentLoaded", async () => {
 
+  //Retreive step2
+const urlParams = new URLSearchParams(window.location.search);
+if (urlParams.get("step") === "2") {
+    showStep(2);
+}
+
   // ==============================
   // HEADER HIDE/SHOW ON SCROLL
   // ==============================
@@ -328,68 +334,53 @@ document.addEventListener("DOMContentLoaded", async () => {
   // Open & confirm form buttons
  
 const openFormBtn = document.getElementById("open-form-btn");
-const confirmBtn = document.getElementById("confirm-form-btn");
-const FORM_URL = "https://tessysbeauty/formulaire";
+const FORM_URL = "https://www.tessysbeauty.com/formulaire";
 
 if (openFormBtn) {
   openFormBtn.addEventListener("click", () => {
     const newWindow = window.open(FORM_URL, "_blank");
 
-    if (newWindow) {
-      // Link louvri nan nouvo tab browser
-      newWindow.focus();
-      if (confirmBtn) {
-        confirmBtn.disabled = false;
-        confirmBtn.classList.remove("cursor-not-allowed", "bg-gray-300", "text-gray-600");
-        confirmBtn.classList.add("bg-pink-600", "text-white");
-      }
-      localStorage.setItem(LS_FORM_OPENED, "1");
-    } else {
-      // Si link pa louvri (FB/IG/WhatsApp app entegre)
-      let warning = document.getElementById("form-warning");
-      if (!warning) {
-        warning = document.createElement("div");
-        warning.id = "form-warning";
-        warning.className = `
-          fixed top-0 left-1/2 -translate-x-1/2 
-          bg-yellow-100 border-l-4 border-yellow-500 
-          text-yellow-700 p-4 z-50 max-w-md text-center 
-          rounded shadow-lg transition-transform duration-500 
-          transform -translate-y-20
-        `;
-        warning.innerHTML = `
-          Appuyez sur le bouton ci-dessous pour l'ouvrir dans votre navigateur :
-          <br><br>
-          <button id="open-external-btn" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Ouvrir dans le navigateur</button>
-        `;
-        document.body.appendChild(warning);
-
-        // Slide-in animasyon
-        setTimeout(() => {
-          warning.style.transform = "translateY(20px) translateX(-50%)";
-        }, 50);
-
-        // Bouton pou ouvri nan browser
-        document.getElementById("open-external-btn").addEventListener("click", () => {
-          window.open(FORM_URL, "_blank");
-          // Slide-out animasyon
-          warning.style.transform = "-translate-y-20 translateX(-50%)";
-          setTimeout(() => warning.remove(), 500);
-        });
-      }
+    if (!newWindow) {
+      showExternalBrowserWarning();
     }
   });
 }
 
+function showExternalBrowserWarning() {
+  if (document.getElementById("form-warning")) return;
 
-  on(confirmBtn, "click", () => {
-    confirmBtn.disabled = true;
-    confirmBtn.classList.add("cursor-not-allowed", "bg-gray-300", "text-gray-600");
-    confirmBtn.classList.remove("bg-pink-600", "text-white");
-    localStorage.setItem(LS_FORM_FILLED_AT, Date.now());
-    showStep(2);
-    setTimeout(activateProof, PROOF_DELAY_MS);
+  const warning = document.createElement("div");
+  warning.id = "form-warning";
+  warning.className = `
+    fixed top-0 left-1/2 -translate-x-1/2
+    bg-yellow-100 border-l-4 border-yellow-500
+    text-yellow-700 p-4 z-50 max-w-md text-center
+    rounded shadow-lg transition-transform duration-500
+    transform -translate-y-20
+  `;
+  
+  warning.innerHTML = `
+    Appuyez sur le bouton ci-dessous pour l'ouvrir dans votre navigateur :
+    <br><br>
+    <button id="open-external-btn" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+      Ouvrir dans le navigateur
+    </button>
+  `;
+
+  document.body.appendChild(warning);
+
+  // slide-in
+  setTimeout(() => {
+    warning.style.transform = "translateY(20px) translateX(-50%)";
+  }, 50);
+
+  document.getElementById("open-external-btn").addEventListener("click", () => {
+    window.open(FORM_URL, "_blank");
+    warning.style.transform = "-translate-y-20 translateX(-50%)";
+    setTimeout(() => warning.remove(), 500);
   });
+}
+
 
   // Step navigation buttons
   on($("step2-prev"), "click", () => showStep(1));
