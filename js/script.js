@@ -407,60 +407,8 @@ if (openFormBtn) {
 });
 
 //Forms Script
-// 1️⃣ Defini fòm nan
-const form = document.getElementById("academy-form");
 
-// 2️⃣ API URL (retire newline oswa espas)
-const API_URL = "https://script.google.com/macros/s/AKfycbyv940oyUz1kaoEB4ZU84tVgdz95z4dfX4R8-uwR5aMkqc1dZ7_N6V7jYsfw6b79RxI/exec";
+ console.log("Données envoyées:", formData); // debug nan console
 
-// 3️⃣ Submit event
-form.addEventListener("submit", async (e) => {
-  e.preventDefault(); // anpeche submit default
-
-  // 4️⃣ Ranmase done fòm nan
-  const formData = {
-    nom: document.getElementById("nom").value,
-    prenom: document.getElementById("prenom").value,
-    adresse: document.getElementById("adresse").value,
-    email: document.getElementById("email").value,
-    sexe: document.getElementById("sexe").value,
-    telephone: document.getElementById("telephone").value,
-    experience: document.querySelector('input[name="experience"]:checked')?.value || "",
-    source: Array.from(document.querySelectorAll('input[name="source[]"]:checked')).map(cb => cb.value),
-    profession: document.getElementById("profession").value,
-    attentes: document.getElementById("attentes").value,
-    engagement: document.querySelector('input[name="engagement"]').checked ? "Oui" : "Non"
-  };
-
-  console.log("Données envoyées:", formData); // debug nan console
-
-  try {
-    const res = await fetch(API_URL, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(formData)
-    });
-
-    const data = await res.json();
-
-    if (data.status === "success") {
-      form.reset();
-      const msg = document.getElementById("confirmation-message");
-      msg.classList.remove("hidden", "opacity-0", "-translate-y-10");
-      msg.classList.add("opacity-100", "translate-y-0");
-
-      // fè mesaj disparèt apre 10s
-      setTimeout(() => {
-        msg.classList.add("opacity-0", "-translate-y-10");
-        msg.classList.remove("opacity-100", "translate-y-0");
-      }, 10000);
-    } else {
-      alert("Erreur: " + data.message);
-    }
-
-  } catch (err) {
-    console.error(err);
-    alert("Une erreur est survenue.");
-  }
-});
+  
 
