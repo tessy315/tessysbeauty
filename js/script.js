@@ -329,7 +329,7 @@ document.addEventListener("DOMContentLoaded", async () => {
  
 const openFormBtn = document.getElementById("open-form-btn");
 const confirmBtn = document.getElementById("confirm-form-btn");
-const FORM_URL = "https://docs.google.com/forms/d/e/1FAIpQLScNXYe30tva_f3BmVvknZaqqfzHT0FCFjQl8TwphTrxOZh3uA/viewform?usp=header";
+const FORM_URL = "https://tessysbeauty/formulaire";
 
 if (openFormBtn) {
   openFormBtn.addEventListener("click", () => {
