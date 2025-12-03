@@ -1,24 +1,10 @@
 // ------------------------------
 // UTILS - SAFE QUERY & EVENT
 // ------------------------------
-function $(id) {
-  return document.getElementById(id);
-}
+function $(id) { return document.getElementById(id); }
+function on(el, event, fn) { if (el) el.addEventListener(event, fn); }
 
-function on(el, event, fn) {
-  if (el) el.addEventListener(event, fn);
-}
-
-// ------------------------------
-// ALL SCRIPT INSIDE DOM LOADED
-// ------------------------------
-document.addEventListener("DOMContentLoaded", async () => {
-
-  //Retreive step2
-const urlParams = new URLSearchParams(window.location.search);
-if (urlParams.get("step") === "2") {
-    showStep(2);
-}
+document.addEventListener("DOMContentLoaded", () => {
 
   // ==============================
   // HEADER HIDE/SHOW ON SCROLL
@@ -34,17 +20,17 @@ if (urlParams.get("step") === "2") {
   // ==============================
   // MOBILE MENU TOGGLE
   // ==============================
-  on($("hamburger"), "click", () => {
-    const mobileMenu = $("mobile-menu");
+  const hamburger = $("hamburger");
+  const mobileMenu = $("mobile-menu");
+
+  on(hamburger, "click", () => {
     if (!mobileMenu) return;
     mobileMenu.classList.toggle("max-h-0");
     mobileMenu.classList.toggle("max-h-screen");
   });
 
-  // Close mobile menu on link click
   document.querySelectorAll("#mobile-menu a").forEach(link => {
     on(link, "click", () => {
-      const mobileMenu = $("mobile-menu");
       if (!mobileMenu) return;
       mobileMenu.classList.add("max-h-0");
       mobileMenu.classList.remove("max-h-screen");
@@ -52,7 +38,7 @@ if (urlParams.get("step") === "2") {
   });
 
   // ==============================
-  // GENERAL SLIDER FUNCTION
+  // GENERAL SLIDER FUNCTIONS
   // ==============================
   function initSlider(containerId, prevId, nextId, counterId, intervalTime = 5000) {
     const container = $(containerId);
@@ -123,7 +109,6 @@ if (urlParams.get("step") === "2") {
   // ==============================
   initSlider("slides-container", "prev", "next", "counter");
   initFadeSlider("legalite-slides-container", "legalite-prev", "legalite-next", "legalite-counter");
- 
 
   // ==============================
   // FORMATS SLIDER
@@ -147,86 +132,9 @@ if (urlParams.get("step") === "2") {
   showFormatSlide(formatIndex);
 
   // ==============================
-  // ACADEMY STEPS & PIN
+  // FIX WHATSAPP LINK
   // ==============================
-  const LS_STEP = "academyCurrentStep";
-  const LS_FORM_FILLED_AT = "academyFormFilledAt";
-  const LS_FORM_OPENED = "academyFormOpened";
-  const PROOF_DELAY_MS = 60 * 1000;
-  const PIN_API_URL = "https://tess.tessysbeautyy.workers.dev/pin";
-  let MASTER_PIN = null;
-
-  async function fetchMasterPin() {
-    try {
-      const res = await fetch(PIN_API_URL, { method: "GET", headers: { "x-api-key": "admin2025_secret_key" }, cache: "no-cache" });
-      if (!res.ok) { console.error(await res.text()); return; }
-      const data = await res.json();
-      MASTER_PIN = data?.pin ?? null;
-    } catch(err) { console.error("Erreur fetch PIN:", err); }
-  }
-
-  await fetchMasterPin();
-
-  const btnValidate = $("pin-validate");
-  const inputEl = $("pin-input");
-  const classroomLink = $("classroom-link");
-  const msgEl = $("pin-msg");
-
-  function showMessage(msg, type="info") {
-    if (!msgEl) return;
-    msgEl.textContent = msg;
-    msgEl.className = "";
-    msgEl.classList.add(type === "error" ? "text-red-500" : type === "success" ? "text-green-500" : "text-gray-600");
-  }
-
-  on(btnValidate, "click", () => {
-    const userPin = inputEl?.value.trim();
-    if (!userPin) return showMessage("Veuillez entrer le PIN", "error");
-    if (MASTER_PIN && userPin === String(MASTER_PIN)) {
-      showMessage("Code PIN valide ✅", "success");
-      classroomLink?.classList.remove("hidden");
-      localStorage.setItem("academyAccessGranted", "1");
-    } else showMessage("Code PIN invalide ❌", "error");
-  });
-
-  if (localStorage.getItem("academyAccessGranted") === "1") {
-    classroomLink?.classList.remove("hidden");
-    showMessage("Accès déjà autorisé.", "success");
-  }
-
-  
-function showStep(step) {
-  document.querySelectorAll(".step").forEach(el => el.classList.add("hidden"));
-  document.getElementById("step" + step).classList.remove("hidden");
-}
-
-/* Auto-open correct step if redirected from GAS */
-const urlParams = new URLSearchParams(window.location.search);
-if (urlParams.get("step") === "2") {
-  showStep(2);
-} else {
-  showStep(1); // default
-}
-
-/* Step Navigation Buttons */
-document.getElementById("step2-next")?.addEventListener("click", () => showStep(3));
-document.getElementById("step3-next")?.addEventListener("click", () => showStep(4));
-
-document.getElementById("step2-prev")?.addEventListener("click", () => showStep(1));
-document.getElementById("step3-prev")?.addEventListener("click", () => showStep(2));
-document.getElementById("step4-prev")?.addEventListener("click", () => showStep(3));
-
-  $("step-5")?.classList.remove("hidden");
-
-  // Fix WhatsApp links
   const contactBtn = document.querySelector('#contact a[href*="wa.me"]');
   if (contactBtn) contactBtn.href = "https://wa.me/50939310139";
 
 });
-
-//Forms Script
-
- console.log("Données envoyées:", formData); // debug nan console
-
-  
-
