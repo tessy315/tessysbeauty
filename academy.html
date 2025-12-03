@@ -476,6 +476,7 @@ document.getElementById("close-popup").addEventListener("click", () => {
 /* -------------------------------
    3. Soumèt yon review
 --------------------------------*/
+
 document.getElementById("review-form").addEventListener("submit", async (e) => {
   e.preventDefault();
 
@@ -484,15 +485,19 @@ document.getElementById("review-form").addEventListener("submit", async (e) => {
 
   if (!name || !message) return alert("Remplissez tous les champs.");
 
-  const formData = new FormData();
-  formData.append("action", "add");
-  formData.append("name", name);
-  formData.append("message", message);
+  const payload = {
+    action: "add",
+    name,
+    message,
+    rating: 5,         // default, paske ou retire sistem étoile yo
+    image: ""          // si w vle ajoute image pita
+  };
 
   try {
     const res = await fetch(REVIEW_API_URL, {
       method: "POST",
-      body: formData
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload)
     });
 
     const result = await res.json();
@@ -511,6 +516,7 @@ document.getElementById("review-form").addEventListener("submit", async (e) => {
   }
 });
 
+
 /* -------------------------------
    4. Load reviews when page loads
 --------------------------------*/
@@ -520,6 +526,7 @@ window.addEventListener("DOMContentLoaded", loadReviews);
 </body>
 
 </html>
+
 
 
 
