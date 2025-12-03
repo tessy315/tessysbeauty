@@ -123,90 +123,98 @@ if (urlParams.get("step") === "2") {
   // ==============================
   initSlider("slides-container", "prev", "next", "counter");
   initFadeSlider("legalite-slides-container", "legalite-prev", "legalite-next", "legalite-counter");
-
   // ==============================
   // REVIEWS SYSTEM
   // ==============================
-  const API_URL = "https://script.google.com/macros/s/AKfycbwQf-_JdtupPMOe6DBVu-hzfCcPHuRVo9P6zUS6fkbVKy0Op2PqrS9O1pghBXPOVGBf/exec";
-  let selectedRating = 0;
+  const REVIEW_API_URL = "https://script.google.com/macros/s/AKfycbw0bJZgCE79Hipkq1FIgH6KUZEsYMrOU7rZjkZqQevA_GCY-7KasoKPM-5I8e_yDwOp/exec";
 
-  const openBtn = $("open-review-form");
-  const closeBtn = $("close-popup");
-  const popup = $("review-popup");
-  const form = $("review-form");
-  const reviewsList = $("reviews-list");
-  const stars = document.querySelectorAll("#rating-stars span");
-  const imageInput = $("review-image");
+/* -------------------------------
+   1. Afiche reviews yo
+--------------------------------*/
+async function loadReviews() {
+  try {
+    const response = await fetch(REVIEW_API_URL + "?action=get");
+    const data = await response.json();
 
-  on(openBtn, "click", () => popup?.classList.remove("hidden", "opacity-0"));
-  on(closeBtn, "click", () => popup?.classList.add("hidden"));
+    const container = document.getElementById("reviews-list");
+    container.innerHTML = "";
 
-  stars.forEach(star => on(star, "click", () => {
-    selectedRating = parseInt(star.dataset.value);
-    stars.forEach(s => s.classList.toggle("text-yellow-400", s.dataset.value <= selectedRating));
-  }));
-
-  async function loadReviews() {
-    if (!reviewsList) return;
-    reviewsList.innerHTML = "<p class='text-center col-span-2 text-gray-500'>Chargement...</p>";
-    try {
-      const res = await fetch(API_URL);
-      const data = await res.json();
-      if (!data || data.length === 0) {
-        reviewsList.innerHTML = "<p class='text-center col-span-2 text-gray-500'>Aucun avis pour le moment. Soyez le premier !</p>";
-        return;
-      }
-      reviewsList.innerHTML = data.reverse().map(r => `
-        <div class="bg-white/70 rounded-xl p-4 shadow-md flex flex-col items-center text-center">
-          ${r.image ? `<img src="${r.image}" alt="photo" class="w-full h-48 object-cover rounded-lg mb-3">` : ""}
-          <p class="text-yellow-400 text-lg">${"★".repeat(r.rating)}${"☆".repeat(5 - r.rating)}</p>
-          <p class="italic text-gray-800 mb-2">"${r.message}"</p>
-          <p class="font-semibold text-gray-700">– ${r.name}</p>
-        </div>
-      `).join("");
-    } catch (e) {
-      reviewsList.innerHTML = "<p class='text-center text-red-500'>Erreur de chargement des avis.</p>";
+    if (!data || data.length === 0) {
+      container.innerHTML = "<p class='text-center text-gray-600'>Aucun avis pour le moment.</p>";
+      return;
     }
+
+    data.forEach(r => {
+      const card = document.createElement("div");
+      card.className =
+        "bg-white p-4 shadow rounded-none border border-pink-100 hover:shadow-md transition";
+
+      card.innerHTML = `
+        <h4 class="text-lg font-semibold text-pink-700">${r.name}</h4>
+        <p class="text-sm text-gray-600 italic">${r.date}</p>
+        <p class="mt-2 text-gray-800">${r.message}</p>
+      `;
+
+      container.appendChild(card);
+    });
+  } catch (err) {
+    console.error("Erreur en chargeant les avis :", err);
   }
+}
 
-  on(form, "submit", async e => {
-    e.preventDefault();
-    if (!form) return;
-    if (!selectedRating) return alert("Merci de sélectionner une note ⭐");
+/* -------------------------------
+   2. Ouvri / fèmen popup la
+--------------------------------*/
+document.getElementById("open-review-form").addEventListener("click", () => {
+  document.getElementById("review-popup").classList.remove("hidden");
+});
 
-    const name = $("review-name")?.value.trim() || "";
-    const message = $("review-message")?.value.trim() || "";
-    const file = imageInput?.files[0];
+document.getElementById("close-popup").addEventListener("click", () => {
+  document.getElementById("review-popup").classList.add("hidden");
+});
 
-    if (!name || !message) return alert("Veuillez remplir tous les champs.");
+/* -------------------------------
+   3. Soumèt yon review
+--------------------------------*/
+document.getElementById("review-form").addEventListener("submit", async (e) => {
+  e.preventDefault();
 
-    let imageBase64 = "";
-    if (file && file.size <= 4 * 1024 * 1024) {
-      imageBase64 = await new Promise((resolve, reject) => {
-        const reader = new FileReader();
-        reader.onload = () => resolve(reader.result);
-        reader.onerror = reject;
-        reader.readAsDataURL(file);
-      });
-    } else if (file) return alert("L’image dépasse 4 MB. Veuillez choisir une image plus légère.");
+  const name = document.getElementById("review-name").value.trim();
+  const message = document.getElementById("review-message").value.trim();
 
-    const reviewData = { name, message, rating: selectedRating, image: imageBase64 };
+  if (!name || !message) return alert("Remplissez tous les champs.");
 
-    try {
-      await fetch(API_URL, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(reviewData)
-      });
-      form.reset();
-      popup?.classList.add("hidden");
-      selectedRating = 0;
-      stars.forEach(s => s.classList.remove("text-yellow-400"));
+  const formData = new FormData();
+  formData.append("action", "add");
+  formData.append("name", name);
+  formData.append("message", message);
+
+  try {
+    const res = await fetch(REVIEW_API_URL, {
+      method: "POST",
+      body: formData
+    });
+
+    const result = await res.json();
+
+    if (result.success) {
+      alert("Merci pour votre avis !");
+      document.getElementById("review-popup").classList.add("hidden");
+      document.getElementById("review-form").reset();
       loadReviews();
-    } catch (e) { alert("Erreur d’envoi. Réessayez plus tard."); }
-  });
+    } else {
+      alert("Erreur lors de l'envoi.");
+    }
+  } catch (error) {
+    console.error(error);
+    alert("Erreur du serveur.");
+  }
+});
 
-  loadReviews();
+/* -------------------------------
+   4. Load reviews when page loads
+--------------------------------*/
+window.addEventListener("DOMContentLoaded", loadReviews);
 
   // ==============================
   // FORMATS SLIDER
