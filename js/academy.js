@@ -2,40 +2,52 @@
 // ACADEMY: STEPS, PIN & ACCESS
 // ------------------------------
 function $(id) { return document.getElementById(id); }
-function on(el, event, fn) { if (el) el.addEventListener(event, fn); }
+function on(el, event, fn) { if(el) el.addEventListener(event, fn); }
 
 document.addEventListener("DOMContentLoaded", async () => {
 
   // -----------------------------
-  // NAVIGATION ETAP
+  // NAVIGATION ETAP & PROGRESS
   // -----------------------------
+  const progressBar = $("progress-bar");
+  function updateProgress(step){
+    if(!progressBar) return;
+    const percent = step === 1 ? 16.66
+                  : step === 2 ? 33.33
+                  : step === 3 ? 66.66
+                  : step === 4 ? 100 : 0;
+    progressBar.style.width = percent + "%";
+  }
+
   function showStep(step) {
     document.querySelectorAll(".step").forEach(el => el.classList.add("hidden"));
     const el = $("step-" + step);
-    if (el) el.classList.remove("hidden");
+    if(el) el.classList.remove("hidden");
+    updateProgress(step);
   }
 
   // Ouvrir step selon URL ou localStorage
   const urlParams = new URLSearchParams(window.location.search);
   const stepParam = urlParams.get("step");
   let initialStep = 1;
-
-  if (stepParam === "2" || localStorage.getItem("formSubmitted") === "1") {
-    initialStep = 2; // step2 si URL ?step=2 oswa fòm te deja soumèt
-  }
-
+  if(stepParam==="2" || localStorage.getItem("formSubmitted")==="1") initialStep=2;
   showStep(initialStep);
 
   // -----------------------------
   // Step buttons
   // -----------------------------
-  on($("step2-next"), "click", () => showStep(3));
-  on($("proof-next"), "click", () => showStep(4));
-  on($("step2-prev"), "click", () => showStep(1));
-  on($("step3-prev"), "click", () => showStep(2));
-  on($("step4-prev"), "click", () => showStep(3));
+  on($("step2-next"), "click", ()=> showStep(3));
+  on($("proof-next"), "click", ()=> {
+    const isFormSubmitted = localStorage.getItem("formSubmitted")==="1";
+    if(isFormSubmitted) showStep(4);
+    else alert("Veuillez remplir le formulaire d'inscription d'abord, puis effectuer votre paiement et revenir à cette étape aussitôt après.");
+  });
 
-  // Step 5 toujou montre
+  on($("step2-prev"), "click", ()=> showStep(1));
+  on($("step3-prev"), "click", ()=> showStep(2));
+  on($("step4-prev"), "click", ()=> showStep(3));
+
+  // Step 5 toujours visible
   $("step-5")?.classList.remove("hidden");
 
   // -----------------------------
@@ -44,8 +56,8 @@ document.addEventListener("DOMContentLoaded", async () => {
   const proofNextBtn = $("proof-next");
   const proofBtn = $("proof-btn");
 
-  function setProofNextState(enabled) {
-    if (!proofNextBtn) return;
+  function setProofNextState(enabled){
+    if(!proofNextBtn) return;
     proofNextBtn.disabled = !enabled;
     proofNextBtn.classList.toggle("cursor-not-allowed", !enabled);
     proofNextBtn.classList.toggle("bg-pink-600", enabled);
@@ -54,38 +66,42 @@ document.addEventListener("DOMContentLoaded", async () => {
     proofNextBtn.classList.toggle("text-gray-600", !enabled);
   }
 
-  // Aktive bouton proof-next sèlman si form te soumèt
-  const isFormSubmitted = localStorage.getItem("formSubmitted") === "1";
+  const isFormSubmitted = localStorage.getItem("formSubmitted")==="1";
   setProofNextState(isFormSubmitted);
 
-  // Bouton proof pou ouvri form nan
-  on($("open-form-btn"), "click", () => {
-    window.open("https://www.tessysbeauty.com/formulaire", "_blank");
-  });
+  // proofBtn ouvè toujou WhatsApp
+  if(proofBtn) {
+    proofBtn.setAttribute("href", "https://wa.me/50939310139");
+    proofBtn.setAttribute("target", "_blank");
+    proofBtn.setAttribute("rel", "noopener noreferrer");
+    proofBtn.classList.remove("cursor-not-allowed");
+    proofBtn.classList.remove("bg-gray-300");
+    proofBtn.classList.add("bg-gray-300"); // style selon design
+  }
 
-  on(proofBtn, "click", () => {
+  // open form bouton
+  on($("open-form-btn"), "click", ()=> {
     window.open("https://www.tessysbeauty.com/formulaire", "_blank");
   });
 
   // -----------------------------
-  // PIN & ACCESS
+  // PIN & ACCESS (step4)
   // -----------------------------
   const PIN_API_URL = "https://tess.tessysbeautyy.workers.dev/pin";
   let MASTER_PIN = null;
 
-  async function fetchMasterPin() {
-    try {
+  async function fetchMasterPin(){
+    try{
       const res = await fetch(PIN_API_URL, {
-        method: "GET",
-        headers: { "x-api-key": "admin2025_secret_key" },
-        cache: "no-cache"
+        method:"GET",
+        headers:{ "x-api-key":"admin2025_secret_key" },
+        cache:"no-cache"
       });
-      if (!res.ok) { console.error(await res.text()); return; }
+      if(!res.ok){ console.error(await res.text()); return; }
       const data = await res.json();
       MASTER_PIN = data?.pin ?? null;
-    } catch(err) { console.error("Erreur fetch PIN:", err); }
+    }catch(err){ console.error("Erreur fetch PIN:", err);}
   }
-
   await fetchMasterPin();
 
   const btnValidate = $("pin-validate");
@@ -93,26 +109,26 @@ document.addEventListener("DOMContentLoaded", async () => {
   const classroomLink = $("classroom-link");
   const msgEl = $("pin-msg");
 
-  function showMessage(msg, type="info") {
-    if (!msgEl) return;
+  function showMessage(msg, type="info"){
+    if(!msgEl) return;
     msgEl.textContent = msg;
     msgEl.className = "";
-    msgEl.classList.add(type === "error" ? "text-red-500" : type === "success" ? "text-green-500" : "text-gray-600");
+    msgEl.classList.add(type==="error"?"text-red-500":type==="success"?"text-green-500":"text-gray-600");
   }
 
-  on(btnValidate, "click", () => {
+  on(btnValidate, "click", ()=>{
     const userPin = inputEl?.value.trim();
-    if (!userPin) return showMessage("Veuillez entrer le PIN", "error");
-    if (MASTER_PIN && userPin === String(MASTER_PIN)) {
-      showMessage("Code PIN valide ✅", "success");
+    if(!userPin) return showMessage("Veuillez entrer le PIN","error");
+    if(MASTER_PIN && userPin===String(MASTER_PIN)){
+      showMessage("Code PIN valide ✅","success");
       classroomLink?.classList.remove("hidden");
-      localStorage.setItem("academyAccessGranted", "1");
-    } else showMessage("Code PIN invalide ❌", "error");
+      localStorage.setItem("academyAccessGranted","1");
+    } else showMessage("Code PIN invalide ❌","error");
   });
 
-  if (localStorage.getItem("academyAccessGranted") === "1") {
+  if(localStorage.getItem("academyAccessGranted")==="1"){
     classroomLink?.classList.remove("hidden");
-    showMessage("Accès déjà autorisé.", "success");
+    showMessage("Accès déjà autorisé.","success");
   }
 
   // -----------------------------
@@ -120,15 +136,14 @@ document.addEventListener("DOMContentLoaded", async () => {
   // -----------------------------
   const reviewForm = $("review-form");
   if(reviewForm){
-    reviewForm.addEventListener("submit", (e)=>{
+    reviewForm.addEventListener("submit",(e)=>{
       e.preventDefault();
-      alert("Formulaire soumis ✅"); // Placeholder pou GAS
+      alert("Formulaire soumis ✅");
       reviewForm.reset();
       $("review-popup")?.classList.add("hidden");
     });
   }
-
-  on($("open-review-form"), "click", () => $("review-popup")?.classList.remove("hidden"));
-  on($("close-popup"), "click", () => $("review-popup")?.classList.add("hidden"));
+  on($("open-review-form"), "click", ()=> $("review-popup")?.classList.remove("hidden"));
+  on($("close-popup"), "click", ()=> $("review-popup")?.classList.add("hidden"));
 
 });
