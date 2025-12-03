@@ -182,18 +182,26 @@
 
       <!-- Step 3 -->
       <div id="step-3" class="hidden">
-        <h3 class="text-2xl font-bold mb-2">3. Soumettre preuve de paiement</h3>
-        <p class="mb-4 text-gray-600">Effectuez votre paiement puis soumettez votre preuve via WhatsApp.</p>
-        <a id="proof-btn" href="javascript:void(0)"
-           class="inline-block px-6 py-3 bg-gray-300 text-gray-600 rounded-none cursor-not-allowed mb-2">
-           Soumettre preuve de paiement (WhatsApp)
-        </a>
-        
-        <div class="flex justify-between mt-4">
-          <button id="step3-prev" class="px-4 py-2 bg-gray-300 rounded-none hover:bg-gray-400">Étape précédente</button>
-          <button id="proof-next" class="px-4 py-2 bg-gray-300 text-gray-600 rounded-none cursor-not-allowed" disabled>Étape suivante</button>
-        </div>
-      </div>
+  <h3 class="text-2xl font-bold mb-2">3. Soumettre preuve de paiement</h3>
+  <p class="mb-4 text-gray-600">Effectuez votre paiement puis soumettez votre preuve via WhatsApp.</p>
+
+  <!-- Bouton WhatsApp toujou vèt epi aktif -->
+  <a id="proof-btn" href="https://wa.me/50939310139" target="_blank" rel="noopener noreferrer"
+     class="inline-block px-6 py-3 bg-green-600 text-white rounded-none cursor-pointer mb-2">
+     Soumettre preuve de paiement (WhatsApp)
+  </a>
+  
+  <div class="flex justify-between mt-4">
+    <!-- Bouton précédent -->
+    <button id="step3-prev" class="px-4 py-2 bg-gray-300 rounded-none hover:bg-gray-400">Étape précédente</button>
+
+    <!-- Bouton étape suivante toujou wòz epi aktif -->
+    <button id="proof-next" class="px-4 py-2 bg-pink-600 text-white rounded-none cursor-pointer">
+      Étape suivante
+    </button>
+  </div>
+</div>
+
 
       <!-- Step 4 -->
       <div id="step-4" class="hidden">
@@ -423,6 +431,7 @@
 </body>
 
 </html>
+
 
 
 
