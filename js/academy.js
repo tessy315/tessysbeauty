@@ -1,135 +1,174 @@
-// ------------------------------
-// ACADEMY: STEPS, PIN & ACCESS
-// ------------------------------
+// ----------------------------------------
+// ACADEMY.JS OFFICIEL — VERSION OPTIMISÉE
+// ----------------------------------------
+
 function $(id) { return document.getElementById(id); }
 function on(el, event, fn) { if (el) el.addEventListener(event, fn); }
 
 document.addEventListener("DOMContentLoaded", async () => {
 
-  // -----------------------------
-  // NAVIGATION ETAP
-  // -----------------------------
-  const steps = ["step-1","step-2","step-3","step-4"];
+  // ----------------------------------------
+  // SYSTEME ETAP + PROGRESS BAR
+  // ----------------------------------------
+  const steps = ["step-1", "step-2", "step-3", "step-4"];
   const progressBar = $("progress-bar");
 
   function showStep(step) {
-    // Maske tout etap
-    steps.forEach((id,i)=>{
+    steps.forEach((id, index) => {
       const el = $(id);
-      if(!el) return;
-      if(i+1 === step){
-        el.classList.remove("hidden");
-        el.classList.add("flex","transition-transform","translate-x-0");
+      if (!el) return;
+
+      if (index + 1 === step) {
+        el.classList.remove("hidden");     // montre ETAP la
       } else {
-        el.classList.add("hidden");
-        el.classList.remove("flex","translate-x-0");
+        el.classList.add("hidden");        // kache lòt yo
       }
     });
 
-    // Update progress bar
-    const percent = step === 1 ? 16.66
-                  : step === 2 ? 33.33
-                  : step === 3 ? 66.66
-                  : step === 4 ? 100 : 0;
-    if(progressBar) progressBar.style.width = percent + "%";
+    // MAJ PROGRESS BAR
+    const percent =
+      step === 1 ? 16.66 :
+      step === 2 ? 33.33 :
+      step === 3 ? 66.66 :
+      step === 4 ? 100 : 0;
+
+    if (progressBar) progressBar.style.width = percent + "%";
   }
 
-  // Ouvrir step selon URL ou localStorage
+  // ETAP INISYAL SUIVAN URL + FORM SUBMIT
+  let startStep = 1;
   const urlParams = new URLSearchParams(window.location.search);
   const stepParam = urlParams.get("step");
-  let initialStep = 1;
-  if(stepParam === "2" || localStorage.getItem("formSubmitted") === "1"){
-    initialStep = 2;
+
+  if (stepParam === "2" || localStorage.getItem("formSubmitted") === "1") {
+    startStep = 2;
   }
-  showStep(initialStep);
 
-  // -----------------------------
-  // Boutons précédent / suivant
-  // -----------------------------
-  document.getElementById("step2-prev")?.addEventListener("click",()=>showStep(1));
-  document.getElementById("step2-next")?.addEventListener("click",()=>showStep(3));
-  document.getElementById("step3-prev")?.addEventListener("click",()=>showStep(2));
-  document.getElementById("proof-next")?.addEventListener("click",()=>showStep(4));
-  document.getElementById("step4-prev")?.addEventListener("click",()=>showStep(3));
+  showStep(startStep);
 
-  // -----------------------------
-  // STEP3: Soumettre preuve paiement
-  // -----------------------------
+
+  // ----------------------------------------
+  // NAVIGATION — BOUTON PRECEDENT / SUIVANT
+  // ----------------------------------------
+  on($("step2-prev"), "click", () => showStep(1));
+  on($("step2-next"), "click", () => showStep(3));
+  on($("step3-prev"), "click", () => showStep(2));
+  on($("step3-next"), "click", () => showStep(4));
+  on($("step4-prev"), "click", () => showStep(3));
+
+
+  // ----------------------------------------
+  // STEP 1 — OUVRIR FORMULAIRE
+  // ----------------------------------------
+  const openFormBtn = $("open-form-btn");
+  if (openFormBtn) {
+    on(openFormBtn, "click", () => {
+      window.location.href = "https://tessysbeauty.com/formulaire";
+    });
+  }
+
+
+  // ----------------------------------------
+  // STEP 3 — PROOF PAIEMENT (Always Active)
+  // ----------------------------------------
   const proofBtn = $("proof-btn");
-  const proofNextBtn = $("proof-next");
+  const step3Next = $("step3-next");
 
-  if(proofBtn){
-    proofBtn.classList.remove("cursor-not-allowed","bg-gray-300","text-gray-600");
-    proofBtn.classList.add("bg-green-600","text-white");
-    on(proofBtn,"click",()=> window.open("https://wa.me/50939310139","_blank"));
+  if (proofBtn) {
+    proofBtn.classList.remove("cursor-not-allowed", "bg-gray-300", "text-gray-600");
+    proofBtn.classList.add("bg-green-600", "text-white", "cursor-pointer");
+
+    on(proofBtn, "click", () => {
+      window.open("https://wa.me/50939310139", "_blank");
+    });
   }
 
-  if(proofNextBtn){
-    proofNextBtn.classList.remove("cursor-not-allowed","bg-gray-300","text-gray-600");
-    proofNextBtn.classList.add("bg-pink-600","text-white");
-    proofNextBtn.disabled = false;
+  if (step3Next) {
+    step3Next.classList.remove("cursor-not-allowed", "bg-gray-300", "text-gray-600");
+    step3Next.classList.add("bg-pink-600", "text-white", "cursor-pointer");
+    step3Next.disabled = false;
   }
 
-  // -----------------------------
-  // PIN & ACCESS
-  // -----------------------------
+
+  // ----------------------------------------
+  // STEP 4 — PIN VALIDATION + GOOGLE CLASSROOM
+  // ----------------------------------------
   const PIN_API_URL = "https://tess.tessysbeautyy.workers.dev/pin";
   let MASTER_PIN = null;
 
   async function fetchMasterPin() {
-    try{
-      const res = await fetch(PIN_API_URL,{
-        method:"GET",
-        headers:{"x-api-key":"admin2025_secret_key"},
-        cache:"no-cache"
+    try {
+      const res = await fetch(PIN_API_URL, {
+        method: "GET",
+        headers: { "x-api-key": "admin2025_secret_key" },
+        cache: "no-cache"
       });
-      if(!res.ok){ console.error(await res.text()); return; }
+
+      if (!res.ok) {
+        console.error(await res.text());
+        return;
+      }
+
       const data = await res.json();
       MASTER_PIN = data?.pin ?? null;
-    } catch(err){ console.error("Erreur fetch PIN:", err);}
+
+    } catch (err) {
+      console.error("Erreur fetch PIN:", err);
+    }
   }
   await fetchMasterPin();
 
   const btnValidate = $("pin-validate");
-  const inputEl = $("pin-input");
+  const inputPIN = $("pin-input");
   const classroomLink = $("classroom-link");
-  const msgEl = $("pin-msg");
+  const pinMsg = $("pin-msg");
 
-  function showMessage(msg,type="info"){
-    if(!msgEl) return;
-    msgEl.textContent = msg;
-    msgEl.className = "";
-    msgEl.classList.add(type==="error" ? "text-red-500" : type==="success" ? "text-green-500" : "text-gray-600");
+  function showMessage(msg, type = "info") {
+    if (!pinMsg) return;
+    pinMsg.textContent = msg;
+
+    pinMsg.className = "";
+    pinMsg.classList.add(
+      type === "error" ? "text-red-500" :
+      type === "success" ? "text-green-500" :
+      "text-gray-600"
+    );
   }
 
-  on(btnValidate,"click",()=>{
-    const userPin = inputEl?.value.trim();
-    if(!userPin) return showMessage("Veuillez entrer le PIN","error");
-    if(MASTER_PIN && userPin===String(MASTER_PIN)){
-      showMessage("Code PIN valide ✅","success");
+  on(btnValidate, "click", () => {
+    const userPin = inputPIN?.value.trim();
+    if (!userPin) return showMessage("Veuillez entrer le PIN", "error");
+
+    if (MASTER_PIN && userPin === String(MASTER_PIN)) {
+      showMessage("Code PIN valide ✅", "success");
       classroomLink?.classList.remove("hidden");
-      localStorage.setItem("academyAccessGranted","1");
-    } else showMessage("Code PIN invalide ❌","error");
+      localStorage.setItem("academyAccessGranted", "1");
+    } else {
+      showMessage("Code PIN invalide ❌", "error");
+    }
   });
 
-  if(localStorage.getItem("academyAccessGranted")==="1"){
+  // Accès déjà validé
+  if (localStorage.getItem("academyAccessGranted") === "1") {
     classroomLink?.classList.remove("hidden");
-    showMessage("Accès déjà autorisé.","success");
+    showMessage("Accès déjà autorisé.", "success");
   }
 
-  // -----------------------------
-  // REVIEWS (optionnel)
-  // -----------------------------
+
+  // ----------------------------------------
+  // REVIEWS (Optionnel)
+  // ----------------------------------------
   const reviewForm = $("review-form");
-  if(reviewForm){
-    reviewForm.addEventListener("submit",(e)=>{
+  if (reviewForm) {
+    on(reviewForm, "submit", (e) => {
       e.preventDefault();
       alert("Formulaire soumis ✅");
       reviewForm.reset();
       $("review-popup")?.classList.add("hidden");
     });
   }
-  on($("open-review-form"),"click",()=> $("review-popup")?.classList.remove("hidden"));
-  on($("close-popup"),"click",()=> $("review-popup")?.classList.add("hidden"));
+
+  on($("open-review-form"), "click", () => $("review-popup")?.classList.remove("hidden"));
+  on($("close-popup"), "click", () => $("review-popup")?.classList.add("hidden"));
 
 });
