@@ -63,7 +63,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   const openFormBtn = $("open-form-btn");
   if (openFormBtn) {
     on($("open-form-btn"), "click", () => {
-  window.location.href = "https://tessysbeauty.com/formulaire";
+  window.location.href = "https://www.tessysbeauty.com/formulaire";
 });
   }
 
