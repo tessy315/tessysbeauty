@@ -1,5 +1,5 @@
 // ----------------------------------------
-// ACADEMY.JS OFFICIEL — VERSION OPTIMISÉE
+// ACADEMY.JS 
 // ----------------------------------------
 
 function $(id) { return document.getElementById(id); }
@@ -62,9 +62,9 @@ document.addEventListener("DOMContentLoaded", async () => {
   // ----------------------------------------
   const openFormBtn = $("open-form-btn");
   if (openFormBtn) {
-    on(openFormBtn, "click", () => {
-      window.location.href = "https://tessysbeauty.com/formulaire";
-    });
+    on($("open-form-btn"), "click", () => {
+  window.location.href = "https://tessysbeauty.com/formulaire";
+});
   }
 
 
