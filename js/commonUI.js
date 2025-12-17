@@ -17,25 +17,34 @@ document.addEventListener("DOMContentLoaded", () => {
     lastScrollY = window.scrollY;
   });
 
-  // ==============================
-  // MOBILE MENU TOGGLE
-  // ==============================
-  const hamburger = $("hamburger");
-  const mobileMenu = $("mobile-menu");
+ // ==============================
+// MOBILE MENU TOGGLE (AUTO-HIDE)
+// ==============================
+const hamburger = $("hamburger");
+const mobileMenu = $("mobile-menu");
 
-  on(hamburger, "click", () => {
-    if (!mobileMenu) return;
-    mobileMenu.classList.toggle("max-h-0");
-    mobileMenu.classList.toggle("max-h-screen");
-  });
+function openMenu() {
+  mobileMenu.classList.remove("max-h-0");
+  mobileMenu.classList.add("max-h-screen");
+}
 
-  document.querySelectorAll("#mobile-menu a").forEach(link => {
-    on(link, "click", () => {
-      if (!mobileMenu) return;
-      mobileMenu.classList.add("max-h-0");
-      mobileMenu.classList.remove("max-h-screen");
-    });
-  });
+function closeMenu() {
+  mobileMenu.classList.add("max-h-0");
+  mobileMenu.classList.remove("max-h-screen");
+}
+
+on(hamburger, "click", () => {
+  if (!mobileMenu) return;
+
+  const isOpen = !mobileMenu.classList.contains("max-h-0");
+  isOpen ? closeMenu() : openMenu();
+});
+
+// Auto-close when clicking a menu link
+document.querySelectorAll("#mobile-menu a").forEach(link => {
+  on(link, "click", closeMenu);
+});
+
 
   // ==============================
   // GENERAL SLIDER FUNCTIONS
